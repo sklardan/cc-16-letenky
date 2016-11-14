@@ -28,6 +28,10 @@ public class Query {
         callString.append("&adults=1");
         callString.append("&limit=" + limit);
         String query = callString.toString();
+        System.out.println(query);
         return query;
+
+
+
     }
 }

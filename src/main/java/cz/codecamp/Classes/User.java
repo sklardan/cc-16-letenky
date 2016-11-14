@@ -17,7 +17,7 @@ public class User {
     }
 
     public void addLocation(String code){
-        locations.add(code);
+        //locations.add(code);
     }
 
 }

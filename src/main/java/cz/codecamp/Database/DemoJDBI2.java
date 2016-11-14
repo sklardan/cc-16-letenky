@@ -1,4 +1,4 @@
-package cz.codecamp.Database;//package cz.codecamp;
+package cz.codecamp.Database;
 //
 //
 //import org.jooby.jdbi.Jdbi
