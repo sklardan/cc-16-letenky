@@ -1,6 +1,10 @@
 package cz.codecamp.Classes;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -21,28 +25,36 @@ public class Flight {
     private int price;
     @Column(name="nightsIdDest")
     private int nightsInDest;
-    @Column(name="flyDuration")
-    private String flyDuration;
+    @Column(name="flyDurationMin")
+    private Long flyDurationMin;
     @Column(name="depTime")
     private Date depTime;
+    @Column(name="score")
+    private Integer score;
 
-    protected Flight() {}
+    DateFormat format = new SimpleDateFormat("HH- mm-");
 
-    public Flight(String cFrom, String cTo, int pri, int nights, String flyDur, int dTimeStamp) {
+
+    public Flight() {}
+
+    public Flight(String cFrom, String cTo, int pri, int nights, String flyDur, int dTimeStamp) throws ParseException {
         this.cityFrom = cFrom;
 
         this.cityTo = cTo;
         this.price = pri;
         this.nightsInDest = nights;
-        this.flyDuration = flyDur;
+        flyDur = flyDur.replace('h','-').replace('m','-');
+        Date flyDurationDate = format.parse(flyDur);
+        this.flyDurationMin = flyDurationDate.getTime() / 60000;
         this.depTime=new Date((long)dTimeStamp*1000);
+
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Flights[id=%d, cityFrom='%s', cityTo='%s',  price='%d',  nightsInDest='%d',  flyDuration='%s' , depTime='%s']",
-                id, cityFrom, cityTo, price, nightsInDest, flyDuration, depTime);
+                "Flights[id=%d, cityFrom='%s', cityTo='%s',  price='%d',  nightsInDest='%d',  flyDuration='%d' , depTime='%s']",
+                id, cityFrom, cityTo, price, nightsInDest, flyDurationMin, depTime);
     }
 
     public long getId() {
@@ -85,12 +97,10 @@ public class Flight {
         this.nightsInDest = nightsInDest;
     }
 
-    public String getFlyDuration() {
-        return flyDuration;
-    }
+    public Long getFlyDurationMin() { return flyDurationMin;}
 
-    public void setFlyDuration(String flyDuration) {
-        this.flyDuration = flyDuration;
+    public void setFlyDurationMin(Long flyDurationMin) {
+        this.flyDurationMin = flyDurationMin;
     }
 
     public Date getDepTime() {

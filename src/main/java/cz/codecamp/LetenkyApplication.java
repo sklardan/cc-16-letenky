@@ -54,6 +54,7 @@ public class LetenkyApplication {
 				Integer dTimeStamp = mapper.treeToValue(jdTimeStamp, Integer.class);
 
 				Flight flight = new Flight(cityFrom, cityTo, price, nightsInDest, flyDuration, dTimeStamp);
+				log.info(flight.getFlyDurationMin().toString());
 				repository.save(flight);
 
 				// fetch all customers
