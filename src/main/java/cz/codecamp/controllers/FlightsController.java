@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by jt on 1/20/16.
  */
 @Controller
-public class ProductController {
+public class FlightsController {
 
     private FlightService flightService;
 

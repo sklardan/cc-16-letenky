@@ -12,7 +12,7 @@ public interface FlightRepository extends CrudRepository<Flight, Long> {
 
     List<Flight> findByCityFrom(String cityFrom);
     List<Flight> findByCityFromAndCityTo(String cityFrom, String cityTo);
-
-    List<Flight> removeByCityFrom(String lastname);
+    List<Flight> findByParameters(String cityFrom, String cityTo, Integer nightsInDest);
+    List<Flight> removeByCityFrom(String cityFrom);
 
 }

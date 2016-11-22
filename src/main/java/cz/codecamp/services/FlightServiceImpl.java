@@ -38,7 +38,7 @@ public class FlightServiceImpl implements FlightService {
 
         Flight springIntro = new Flight();
         springIntro.setId(1);
-        springIntro.setCityFrom("milan_it");
+        springIntro.setCityFrom("geneva_ch");
         springIntro.setCityTo("prague_cz");
         springIntro.setNightsInDest(7);
         springIntro.setPrice(78);
