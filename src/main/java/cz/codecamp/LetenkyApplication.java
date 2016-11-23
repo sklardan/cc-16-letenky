@@ -2,27 +2,18 @@ package cz.codecamp;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.codecamp.Classes.Flight;
-import cz.codecamp.Classes.Location;
-import cz.codecamp.Classes.User;
-import cz.codecamp.Database.FlightRepository;
-import cz.codecamp.Database.UserRepository;
-import cz.codecamp.KiwiAPI.Query;
+import cz.codecamp.classes.Flight;
+import cz.codecamp.database.FlightRepository;
+import cz.codecamp.database.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 
 @SpringBootApplication
@@ -93,35 +84,5 @@ public class LetenkyApplication {
 		};
 	};
 
-	public List<Flight> getFlightsForUserAndParameters(String loginName, UserRepository userRepository, FlightRepository flightRepository) {
-		User tomas = userRepository.findByLoginName(loginName);
-		log.info(tomas.toString());
-		Date dateFrom = tomas.getDateFrom();
-		Integer nightsInDestMin = tomas.getNightsInDestinationMin();
-		Integer nightsInDestMax = tomas.getNightsInDestinationMax();
-		List<Location> citiesTo = tomas.getCitiesTo();
-		Location cityFrom = tomas.getCityFrom();
-		String cityFromCode = cityFrom.getCode();
-		Long flyDurationMinutesMax = tomas.getFlyDurationMinutesMax();
 
-		List<Flight> flights = new ArrayList();
-		List<Flight> flightsTemp2 = new ArrayList();
-		for (Location cityTo: citiesTo) {
-			String cityToCode = cityTo.getCode();
-			for (Integer nights = nightsInDestMin; nights <= nightsInDestMax; nights++ ) {
-				List<Flight> flightsTemp = flightRepository.findByParameters(cityFromCode, cityToCode, nights);
-				flightsTemp2.addAll(flightsTemp);
-			}
-		}
-		for (Flight flight: flightsTemp2) {
-			if (flight.getDepTime() >= dateFrom){
-				if (flight.getFlyDurationMinutes() < flyDurationMinutesMax){
-					flights.add(flight);
-				}
-			}
-		}
-
-
-		return flights;
-	}
 }

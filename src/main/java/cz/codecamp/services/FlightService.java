@@ -1,6 +1,6 @@
 package cz.codecamp.services;
 
-import cz.codecamp.Classes.Flight;
+import cz.codecamp.classes.Flight;
 
 import java.util.List;
 
@@ -12,4 +12,6 @@ public interface FlightService {
     Flight getFlight(Integer id);
 
     List<Flight> listFlights();
+
+    List<Flight> getFlightsForUserAndParameters(String loginName);
 }

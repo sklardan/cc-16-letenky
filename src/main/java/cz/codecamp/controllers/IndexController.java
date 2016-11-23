@@ -1,6 +1,5 @@
 package cz.codecamp.controllers;
 
-import cz.codecamp.Classes.Flight;
 import cz.codecamp.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,11 +1,13 @@
-package cz.codecamp.Classes;
+package cz.codecamp.classes;
+
+import cz.codecamp.database.FlightRepository;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jakubbares on 11/13/16.
@@ -17,12 +19,16 @@ public class Flight {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="flightId")
     private long flightId;
+    @Column(name="dateAdded")
+    private Date dateAdded;
     @Column(name="cityFrom")
     private String cityFrom;
     @Column(name="cityTo")
     private String cityTo;
     @Column(name="price")
     private int price;
+    @Column(name="avgPrice")
+    private int avgPrice;
     @Column(name="nightsIdDest")
     private int nightsInDest;
     @Column(name="flyDurationMinutes")
@@ -38,8 +44,8 @@ public class Flight {
     public Flight() {}
 
     public Flight(String cFrom, String cTo, int pri, int nights, String flyDur, int dTimeStamp) throws ParseException {
+        this.dateAdded = new Date();
         this.cityFrom = cFrom;
-
         this.cityTo = cTo;
         this.price = pri;
         this.nightsInDest = nights;
@@ -64,12 +70,31 @@ public class Flight {
                 '}';
     }
 
-    public long getId() {
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded() {
+        Date dateAdded = new Date();
+        this.dateAdded = dateAdded;
+    }
+
+    public long getFlightId() {
         return flightId;
     }
 
-    public void setId(long flightId) {
+    public void setFlightId(long flightId) {
         this.flightId = flightId;
+    }
+
+    public int getAvgPrice(FlightRepository repository) {
+        List<Flight> flights = repository.findByCityFromAndCityTo(getCityFrom(),getCityTo());
+        Integer avgPrice = 0;
+        for (Flight flight : flights){
+            Integer sum =+ flight.getPrice();
+            avgPrice = sum / flights.size();
+        }
+        return avgPrice;
     }
 
     public String getCityFrom() {

@@ -1,4 +1,4 @@
-package cz.codecamp.Classes;
+package cz.codecamp.classes;
 
 import javax.persistence.*;
 

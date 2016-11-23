@@ -1,4 +1,4 @@
-package cz.codecamp.KiwiAPI;
+package cz.codecamp;
 
 /**
  * Created by jakubbares on 11/13/16.
