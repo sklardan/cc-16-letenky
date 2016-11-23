@@ -1,6 +1,6 @@
-package cz.codecamp.Database;
+package cz.codecamp.database;
 
-import cz.codecamp.Classes.Flight;
+import cz.codecamp.classes.Flight;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -1,7 +1,11 @@
 package cz.codecamp.services;
 
-import cz.codecamp.Classes.Flight;
-import cz.codecamp.Classes.User;
+import cz.codecamp.classes.Flight;
+import cz.codecamp.classes.Location;
+import cz.codecamp.classes.User;
+import cz.codecamp.database.FlightRepository;
+import cz.codecamp.database.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,11 +16,17 @@ import java.util.*;
 @Service
 public class FlightServiceImpl implements FlightService {
 
+    @Autowired
+    FlightRepository flightRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     private Map<Integer, Flight> flightMap;
 
-    public FlightServiceImpl() {
-        loadFlights();
-    }
+//    public FlightServiceImpl() {
+//        getFlightsForUserAndParameters(loginName);
+//    }
 
     @Override
     public Flight getFlight(Integer id) {
@@ -25,28 +35,39 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> listFlights() {
-        return new ArrayList<>(flightMap.values());
+        return new ArrayList<Flight>(flightMap.values());
     }
 
-    private void loadFlights() {
+    @Override
+    public List<Flight> getFlightsForUserAndParameters(String loginName) {
+        User user = userRepository.findByLoginName(loginName);
+        Date dateFrom = user.getDateFrom();
+        Integer nightsInDestMin = user.getNightsInDestinationMin();
+        Integer nightsInDestMax = user.getNightsInDestinationMax();
+        List<Location> citiesTo = user.getCitiesTo();
+        Location cityFrom = user.getCityFrom();
+        String cityFromCode = cityFrom.getCode();
+        Long flyDurationMinutesMax = user.getFlyDurationMinutesMax();
+        Float threshold = user.getPctAvgPriceMax();
 
-        User jt = new User();
-        jt.setLoginName("user");
-        jt.setPassword("pass");
-
-        flightMap = new HashMap<>();
-
-        Flight springIntro = new Flight();
-        springIntro.setId(1);
-        springIntro.setCityFrom("geneva_ch");
-        springIntro.setCityTo("prague_cz");
-        springIntro.setNightsInDest(7);
-        springIntro.setPrice(78);
-//        springIntro.setFlyDuration("20 hours");
-        springIntro.setDepTime(new Date());
-
-        flightMap.put(1, springIntro);
-
-
+        List<Flight> flights = new ArrayList<Flight>();
+        List<Flight> flightsTemp2 = new ArrayList<Flight>();
+        for (Location cityTo: citiesTo) {
+            String cityToCode = cityTo.getCode();
+            for (Integer nights = nightsInDestMin; nights <= nightsInDestMax; nights++ ) {
+                List<Flight> flightsTemp = flightRepository.findByParameters(cityFromCode, cityToCode, nights);
+                flightsTemp2.addAll(flightsTemp);
+            }
+        }
+        for (Flight flight: flightsTemp2) {
+            if (flight.getDepTime().getTime() >= dateFrom.getTime()){
+                if (flight.getFlyDurationMinutes() < flyDurationMinutesMax){
+//                    if ((flight.getPrice() / flight.getAvgPrice()) <= threshold) {
+                        flights.add(flight);
+//                    }
+                }
+            }
+        }
+        return flights;
     }
 }

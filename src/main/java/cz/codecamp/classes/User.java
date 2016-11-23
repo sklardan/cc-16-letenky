@@ -1,4 +1,6 @@
-package cz.codecamp.Classes;
+package cz.codecamp.classes;
+
+import cz.codecamp.database.LocationRepository;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class User {
     private Long flyDurationMinutesMax;
     @Column(name="flyDurationHoursMax")
     private Integer flyDurationHoursMax;
+    @Column(name="pctAvgPriceMax")
+    private Float pctAvgPriceMax;
     @Column(name="dateFrom")
     private Date dateFrom;
     @Column(name="dateTo")
@@ -45,8 +49,19 @@ public class User {
     public User() {
     }
 
-    public void addLocation(String code){
-        //locations.add(code);
+    public void addLocation(String cityTo, LocationRepository repository){
+        Location location = repository.findByCity(cityTo);
+        ArrayList<Location> locations = getCitiesTo();
+        locations.add(location);
+        setCitiesTo(locations);
+    }
+
+    public Float getPctAvgPriceMax() {
+        return pctAvgPriceMax;
+    }
+
+    public void setPctAvgPriceMax(Float pctAvgPriceMax) {
+        this.pctAvgPriceMax = pctAvgPriceMax;
     }
 
     public Location getCityFrom() {
