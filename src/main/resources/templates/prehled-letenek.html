@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Letenky pro Vás</title>
+
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+    <script src="../static/js/jquery-2.1.4.min.js"
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+    <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+
+</head>
+<body>
+<div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
+    <div class="container">
+        <h1 th:text="${serverTime}"></h1>
+        <p class="lead" th:text="#{index.courses.tagline}">Tag line</p>
+    </div>
+</div>
+
+
+<ul>
+    <li th:each="planet : ${planets}">Hello Planet!</li>
+</ul>
+
+<div class="container">
+    <div class="col-md-4 col-md-offset-2" style="overflow-x:auto;">
+        <h3>Výběr míst</h3>
+        <table id="letenky" style="width:100%">
+            <tr>
+                <th><h4>City From</h4></th>
+                <th><h4>City To</h4></th>
+                <th><h4>Price</h4></th>
+                <th><h4>Fly duration</h4></th>
+                <th><h4>Date</h4></th>
+                <th><h4>Nights in destination</h4></th>
+            </tr>
+            <tr>
+                <td>Prague</td>
+                <td>Geneva</td>
+                <td>220</td>
+                <td>340</td>
+                <td>9.12.2016</td>
+                <td>4</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
