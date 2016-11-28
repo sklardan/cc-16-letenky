@@ -1,12 +1,11 @@
 package cz.codecamp.controllers;
 
-import cz.codecamp.database.FlightRepository;
+import cz.codecamp.repository.FlightRepository;
 import cz.codecamp.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,18 +32,14 @@ public class FlightsShowController {
     }
 
 
-    @RequestMapping("/")
+    @RequestMapping(value = "letenky/{emailLogin}", method = RequestMethod.GET)
     public ModelAndView getFlights(){
         ModelAndView modelAndView = new ModelAndView("prehled-letenek");
         modelAndView.addObject("serverTime", new Date());
+//        modelAndView.addObject("letenky", flightService.getFlightsForUserAndParameters(emailLogin));
         return modelAndView;
     }
 
-    @RequestMapping(value = "message", method = RequestMethod.GET)
-    public String time(Model model) {
-        model.addAttribute("serverTime", new Date());
-        return "message";
-    }
 
     @RequestMapping(value = "message", method = RequestMethod.GET)
     public String messages(Model model) {
@@ -52,17 +47,13 @@ public class FlightsShowController {
         return "message/list";
     }
 
-    @RequestMapping(value = "message", method = RequestMethod.GET)
+    @RequestMapping(value = "messages", method = RequestMethod.GET)
     public ModelAndView messages() {
         ModelAndView mav = new ModelAndView("message/list");
         mav.addObject("messages", flightRepository.findAll());
         return mav;
     }
 
-    @RequestMapping({"/","/sayhello"})
-    public String showSayHello() {
-        return "sayhello";
-    }
 
     @RequestMapping("/product")
     public String getFlight(){

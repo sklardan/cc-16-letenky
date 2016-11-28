@@ -16,7 +16,7 @@ import javax.validation.Valid;
 @Controller
 public class LoginController {
 
-    @RequestMapping("/login")
+    @RequestMapping({"/", "login"})
     public String showLoginForm(Model model){
 
         model.addAttribute("loginCommand", new LoginCommand());

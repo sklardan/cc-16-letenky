@@ -1,12 +1,15 @@
-package cz.codecamp.classes;
+package cz.codecamp.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jakubbares on 11/13/16.
  */
 
 @Entity
+@Table(name = "locations")
 public class Location {
 
     @Id
@@ -19,6 +22,11 @@ public class Location {
     private String country;
     @Column(name="code")
     private String code;
+
+    @JoinColumn(name = "userId")
+    @ManyToMany
+    @Column(name="users")
+    private List<User> users;
 
     public Location(String city, String country, String code) {
         this.city = city;
@@ -56,6 +64,14 @@ public class Location {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

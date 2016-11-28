@@ -1,31 +1,37 @@
-package cz.codecamp.classes;
+package cz.codecamp.model;
 
-import cz.codecamp.database.LocationRepository;
+import cz.codecamp.repository.LocationRepository;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jakubbares on 11/13/16.
  */
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="userId")
     private int userId;
-    @Column(name="loginName")
-    private String loginName;
+    @Column(name="emailLogin")
+    private String emailLogin;
     @Column(name="password")
     private String password;
     @Column(name="cityFrom")
     private Location cityFrom;
+
     @JoinColumn(name = "locationId")
     @ManyToMany
     @Column(name="citiesTo")
-    private ArrayList<Location> citiesTo;
+    private List<Location> citiesTo;
+
     @Column(name="nightsInDestinationMin")
     private Integer nightsInDestinationMin;
     @Column(name="nightsInDestinationMax")
@@ -36,13 +42,19 @@ public class User {
     private Integer flyDurationHoursMax;
     @Column(name="pctAvgPriceMax")
     private Float pctAvgPriceMax;
+
     @Column(name="dateFrom")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateFrom;
+
     @Column(name="dateTo")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateTo;
 
-    public User(String loginName, String password){
-        this.loginName = loginName;
+    public User(String emailLogin, String password){
+        this.emailLogin = emailLogin;
         this.password = password;
     }
 
@@ -51,7 +63,7 @@ public class User {
 
     public void addLocation(String cityTo, LocationRepository repository){
         Location location = repository.findByCity(cityTo);
-        ArrayList<Location> locations = getCitiesTo();
+        List<Location> locations = getCitiesTo();
         locations.add(location);
         setCitiesTo(locations);
     }
@@ -72,12 +84,12 @@ public class User {
         this.cityFrom = cityFrom;
     }
 
-    public String getLoginName() {
-        return loginName;
+    public String getEmailLogin() {
+        return emailLogin;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public void setEmailLogin(String emailLogin) {
+        this.emailLogin = emailLogin;
     }
 
     public String getPassword() {
@@ -88,11 +100,11 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<Location> getCitiesTo() {
+    public List<Location> getCitiesTo() {
         return citiesTo;
     }
 
-    public void setCitiesTo(ArrayList<Location> citiesTo) {
+    public void setCitiesTo(List<Location> citiesTo) {
         this.citiesTo = citiesTo;
     }
 
@@ -160,7 +172,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", loginName='" + loginName + '\'' +
+                ", emailLogin='" + emailLogin + '\'' +
                 ", password='" + password + '\'' +
                 ", cityFrom='" + cityFrom + '\'' +
                 ", citiesTo=" + citiesTo +
