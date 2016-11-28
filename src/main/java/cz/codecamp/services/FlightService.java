@@ -1,7 +1,10 @@
 package cz.codecamp.services;
 
-import cz.codecamp.classes.Flight;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import cz.codecamp.model.Flight;
+import org.springframework.expression.ParseException;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -9,9 +12,7 @@ import java.util.List;
  */
 public interface FlightService {
 
-    Flight getFlight(Integer id);
-
-    List<Flight> listFlights();
-
     List<Flight> getFlightsForUserAndParameters(String loginName);
+
+    void saveFlightsFromJson(String loginName) throws JsonProcessingException, IOException;
 }

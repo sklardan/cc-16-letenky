@@ -1,10 +1,15 @@
 package cz.codecamp.services;
 
-import cz.codecamp.classes.Flight;
-import cz.codecamp.database.FlightRepository;
-import cz.codecamp.database.UserRepository;
+import cz.codecamp.model.Flight;
+import cz.codecamp.repository.FlightRepository;
+import cz.codecamp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
 import java.util.List;
 
 /**
@@ -19,10 +24,10 @@ public class EmailServiceImpl {
     @Autowired
     FlightService flightService;
 
-
-//    public String sendEmail(){
-//        List<Flight> flights = flightService.getFlightsForUserAndParameters(loginName, userRepository, flightRepository);
-//
-//    }
+    @Scheduled(fixedRate = 86400000) //24 hours cycle
+    public List<Flight> sendEmailToUser(String emailLogin) {
+        List<Flight> flights = flightService.getFlightsForUserAndParameters(emailLogin);
+        return flights;
+    }
 
 }

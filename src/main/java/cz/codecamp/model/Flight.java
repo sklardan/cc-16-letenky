@@ -1,6 +1,8 @@
-package cz.codecamp.classes;
+package cz.codecamp.model;
 
-import cz.codecamp.database.FlightRepository;
+import cz.codecamp.repository.FlightRepository;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.text.DateFormat;
@@ -14,12 +16,16 @@ import java.util.List;
  */
 
 @Entity
+@Table(name = "flights")
 public class Flight {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="flightId")
     private long flightId;
+
     @Column(name="dateAdded")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateAdded;
     @Column(name="cityFrom")
     private String cityFrom;
@@ -34,6 +40,8 @@ public class Flight {
     @Column(name="flyDurationMinutes")
     private Long flyDurationMinutes;
     @Column(name="depTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date depTime;
     @Column(name="score")
     private Integer score;

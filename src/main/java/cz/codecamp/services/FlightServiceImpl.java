@@ -1,17 +1,25 @@
 package cz.codecamp.services;
 
-import cz.codecamp.classes.Flight;
-import cz.codecamp.classes.Location;
-import cz.codecamp.classes.User;
-import cz.codecamp.database.FlightRepository;
-import cz.codecamp.database.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.codecamp.model.Flight;
+import cz.codecamp.model.Location;
+import cz.codecamp.model.User;
+import cz.codecamp.repository.FlightRepository;
+import cz.codecamp.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
- * Created by jt on 1/26/16.
+ * Created by jbares on 1/26/16.
  */
 @Service
 public class FlightServiceImpl implements FlightService {
@@ -22,20 +30,52 @@ public class FlightServiceImpl implements FlightService {
     @Autowired
     UserRepository userRepository;
 
-    private Map<Integer, Flight> flightMap;
+    private final Logger log = LoggerFactory.getLogger(FlightServiceImpl.class);
 
-//    public FlightServiceImpl() {
-//        getFlightsForUserAndParameters(loginName);
-//    }
-
-    @Override
-    public Flight getFlight(Integer id) {
-        return flightMap.get(id);
-    }
+    private String typeFlight = "return";
+    private Integer limit = 100;
 
     @Override
-    public List<Flight> listFlights() {
-        return new ArrayList<Flight>(flightMap.values());
+    public void saveFlightsFromJson (String loginName) throws JsonProcessingException, IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        Query query = new Query();
+        User user = userRepository.findByLoginName(loginName);
+        Date dateFrom = user.getDateFrom();
+        Date dateTo = user.getDateTo();
+        Integer daysInFrom = user.getNightsInDestinationMin();
+        Integer daysInTo = user.getNightsInDestinationMax();
+        List<Location> citiesTo = user.getCitiesTo();
+        String cityFrom = user.getCityFrom().getCode();
+
+        for (Location loc : citiesTo){
+            String cityTo = loc.getCode();
+            String queryString = query.buildQuery(daysInFrom,daysInTo,cityFrom,cityTo, typeFlight,limit);
+            ResponseEntity<String> response = restTemplate.getForEntity(queryString, String.class);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response.getBody());
+            JsonNode data = root.get("data");
+            for (JsonNode jflight : data) {
+
+                JsonNode jflyDuration = jflight.get("fly_duration");
+                JsonNode jprice = jflight.get("conversion").get("EUR");
+                JsonNode jnightsInDest = jflight.get("nightsInDest");
+                JsonNode jdTimeStamp = jflight.get("dTimeUTC");
+
+                String flyDuration = mapper.treeToValue(jflyDuration, String.class);
+                Integer price = mapper.treeToValue(jprice, Integer.class);
+                Integer nightsInDest = mapper.treeToValue(jnightsInDest, Integer.class);
+                Integer dTimeStamp = mapper.treeToValue(jdTimeStamp, Integer.class);
+
+                Flight flight = null;
+                try {
+                    flight = new Flight(cityFrom, cityTo, price, nightsInDest, flyDuration, dTimeStamp);
+                    log.info(flight.getFlyDurationMinutes().toString());
+                } catch (java.text.ParseException e) {
+                    e.printStackTrace();
+                }
+                flightRepository.save(flight);
+            }
+        }
     }
 
     @Override

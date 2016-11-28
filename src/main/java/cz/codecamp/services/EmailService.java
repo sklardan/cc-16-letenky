@@ -1,7 +1,9 @@
 package cz.codecamp.services;
 
-import cz.codecamp.classes.Flight;
+import cz.codecamp.model.Flight;
+import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.mail.Transport;
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
  */
 public interface EmailService {
 
-    public String sendEmail();
+    @Scheduled(fixedRate = 86400000) //24 hours cycle
+    public void sendEmailToUser(String loginName);
 
 }
