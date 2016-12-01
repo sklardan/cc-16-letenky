@@ -24,7 +24,6 @@ public class Flight {
     private long flightId;
 
     @Column(name="dateAdded")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateAdded;
     @Column(name="cityFrom")
@@ -35,16 +34,17 @@ public class Flight {
     private int price;
     @Column(name="avgPrice")
     private int avgPrice;
-    @Column(name="nightsIdDest")
+    @Column(name="nightsIn<Dest")
     private int nightsInDest;
     @Column(name="flyDurationMinutes")
     private Long flyDurationMinutes;
+
     @Column(name="depTime")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date depTime;
     @Column(name="score")
     private Integer score;
+
+    private FlightRepository flightRepository;
 
     DateFormat format = new SimpleDateFormat("HH- mm-");
 
@@ -95,8 +95,8 @@ public class Flight {
         this.flightId = flightId;
     }
 
-    public int getAvgPrice(FlightRepository repository) {
-        List<Flight> flights = repository.findByCityFromAndCityTo(getCityFrom(),getCityTo());
+    public int getAvgPrice() {
+        List<Flight> flights = flightRepository.findByCityFromAndCityTo(getCityFrom(),getCityTo());
         Integer avgPrice = 0;
         for (Flight flight : flights){
             Integer sum =+ flight.getPrice();

@@ -36,10 +36,10 @@ public class FlightServiceImpl implements FlightService {
     private Integer limit = 100;
 
     @Override
-    public void saveFlightsFromJson (String loginName) throws JsonProcessingException, IOException {
+    public void saveFlightsFromJson (String emailLogin) throws JsonProcessingException, IOException {
         RestTemplate restTemplate = new RestTemplate();
         Query query = new Query();
-        User user = userRepository.findByLoginName(loginName);
+        User user = userRepository.findByEmailLogin(emailLogin);
         Date dateFrom = user.getDateFrom();
         Date dateTo = user.getDateTo();
         Integer daysInFrom = user.getNightsInDestinationMin();
@@ -79,8 +79,8 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List<Flight> getFlightsForUserAndParameters(String loginName) {
-        User user = userRepository.findByLoginName(loginName);
+    public List<Flight> getFlightsForUser(String emailLogin) {
+        User user = userRepository.findByEmailLogin(emailLogin);
         Date dateFrom = user.getDateFrom();
         Integer nightsInDestMin = user.getNightsInDestinationMin();
         Integer nightsInDestMax = user.getNightsInDestinationMax();

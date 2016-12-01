@@ -40,7 +40,7 @@ dependencies {
 
 	compile ('org.jadira.usertype:usertype.core:6.0.1.GA')
 	compile ('org.springframework:spring-core:4.3.4.RELEASE')
-
+	compile ('org.hibernate:hibernate-validator:5.3.3.Final')
 
 	compile ('com.github.dandelion:dandelion-datatables:1.1.0')
 

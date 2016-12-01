@@ -35,6 +35,130 @@
         });
     </script>
 
+    <link rel="stylesheet" href="/vendor/jquery-typeahead/dist/jquery.typeahead.min.css">
+    <script src="/vendor/jquery-typeahead/dist/jquery.typeahead.min.js"></script>
+    <script>
+        $.typeahead({
+            input: ".js-typeahead",
+            order: "asc",
+            source: {
+                groupName: {
+                    // Array of Objects / Strings
+                    data: [
+                        {
+                            "city": "Cordoba"
+                        },
+                        {
+                            "city": "Palma"
+                        },
+                        {
+                            "city": "Bonn"
+                        },
+                        {
+                            "city": "Venezia"
+                        },
+                        {
+                            "city": "Belfast"
+                        },
+                        {
+                            "city": "Leicester"
+                        },
+                        {
+                            "city": "Aarhus"
+                        },
+                        {
+                            "city": "Nottingham"
+                        },
+                        {
+                            "city": "Karlsruhe"
+                        },
+                        {
+                            "city": "Porto"
+                        },
+                        {
+                            "city": "Alicante"
+                        },
+                        {
+                            "city": "Ljubljana"
+                        },
+                        {
+                            "city": "Maribor"
+                        },
+                        {
+                            "city": "Malmo"
+                        },
+                        {
+                            "city": "Verona"
+                        },
+                        {
+                            "city": "Strasbourg"
+                        },
+                        {
+                            "city": "Nis"
+                        },
+                        {
+                            "city": "Nantes"
+                        },
+                        {
+                            "city": "Tirana"
+                        },
+                        {
+                            "city": "Kosice"
+                        },
+                        {
+                            "city": "Graz"
+                        },
+                        {
+                            "city": "Utrecht"
+                        },
+                        {
+                            "city": "Gent"
+                        },
+                        {
+                            "city": "Bergen"
+                        },
+                        {
+                            "city": "Bordeaux"
+                        },
+                        {
+                            "city": "Linz"
+                        },
+                        {
+                            "city": "Split"
+                        },
+                        {
+                            "city": "Sarajevo"
+                        },
+                        {
+                            "city": "Le Havre"
+                        },
+                        {
+                            "city": "Tampere"
+                        },
+                        {
+                            "city": "Uppsala"
+                        },
+                        {
+                            "city": "Modena"
+                        },
+                        {
+                            "city": "Geneva"
+                        },
+                        {
+                            "city": "Livorno"
+                        },
+                        {
+                            "city": "Grenoble"
+                        }
+                    ]
+                }
+            },
+            callback: {
+//                onClickBefore: function () { ... }
+            }
+        });
+    </script>
+
 
     <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
 
@@ -47,6 +171,23 @@
     </div>
 </div>
 
+<ul class="navbar">
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/vyber-mist.html}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/prehled-letenek.html}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/nastaveni-hledani.html}">Nastavení hledání</a></li>
+</ul>
+<ul class="navbar navbar-right">
+    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <a href="/registration" th:href="@{/templates/registration.html}>Registration</a>
+    </li>
+    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>
+    </li>
+    <li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">
+        <a href="/logout" th:href="@{/templates/logout.html}">Logout</a>
+    </li>
+</ul>
+
 
 <div class="container">
     <div class="col-md-4 col-md-offset-2" style="overflow-x:auto;">
@@ -56,16 +197,33 @@
                 <th><h4>Cities</h4></th>
                 <th><h4>Countries</h4></th>
             </tr>
-            <tr>
-                <td>Geneva</td>
-                <td>Switzerland</td>
-            </tr>
-            <tr>
-                <td>Paris</td>
-                <td>France</td>
+            <tr th:each="cac : ${citiesAndCountries}">
+                <td th:text="${cac.key}">City</td>
+                <td th:text="${cac.value}">Country</td>
             </tr>
         </table>
     </div>
+
+    <form>
+        <div class="typeahead__container">
+            <div class="typeahead__field">
+
+            <span class="typeahead__query">
+                <input class="js-typeahead"
+                       name="q"
+                       type="search"
+                       autocomplete="off">
+            </span>
+                <span class="typeahead__button">
+                <button type="submit">
+                    <span class="typeahead__search-icon"></span>
+                </button>
+            </span>
+
+            </div>
+        </div>
+    </form>
+
     <div class="col-md-4">
         <div>
             <form class="form-horizontal" th:object="${destinationCommand}" th:action="@{/choose-destination}" method="post">

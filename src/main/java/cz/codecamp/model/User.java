@@ -16,14 +16,22 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
+    private LocationRepository locationRepository;
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="userId")
     private int userId;
+
     @Column(name="emailLogin")
     private String emailLogin;
+
+    @Column(name="userName")
+    private String userName;
+
     @Column(name="password")
     private String password;
+
     @Column(name="cityFrom")
     private Location cityFrom;
 
@@ -44,12 +52,10 @@ public class User {
     private Float pctAvgPriceMax;
 
     @Column(name="dateFrom")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateFrom;
 
     @Column(name="dateTo")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateTo;
 
@@ -61,12 +67,16 @@ public class User {
     public User() {
     }
 
-    public void addLocation(String cityTo, LocationRepository repository){
-        Location location = repository.findByCity(cityTo);
+    public void addLocation(String cityTo){
+        Location location = locationRepository.findByCity(cityTo);
         List<Location> locations = getCitiesTo();
         locations.add(location);
         setCitiesTo(locations);
     }
+
+    public String getUserName() { return userName; }
+
+    public void setUserName(String userName) { this.userName = userName; }
 
     public Float getPctAvgPriceMax() {
         return pctAvgPriceMax;
