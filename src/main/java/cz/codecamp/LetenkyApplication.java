@@ -1,12 +1,12 @@
 
 package cz.codecamp;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.codecamp.model.Flight;
-import cz.codecamp.repository.FlightRepository;
+import cz.codecamp.model.Location;
+import cz.codecamp.model.User;
 import cz.codecamp.repository.UserRepository;
-import cz.codecamp.services.Query;
+import cz.codecamp.services.FlightService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -14,15 +14,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.test.annotation.Rollback;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -30,16 +28,18 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Properties;
+import java.util.*;
 
 
 @EnableScheduling
 @Configuration
 @SpringBootApplication
+@Rollback(value = false)
 public class LetenkyApplication {
 
     @Value("${email.from}")
@@ -48,6 +48,12 @@ public class LetenkyApplication {
     @Value("${password}")
     private String password;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    FlightService flightService;
+
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", new Locale("cs", "cz"));
 
 	private static final Logger log = LoggerFactory.getLogger(LetenkyApplication.class);
@@ -55,6 +61,42 @@ public class LetenkyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LetenkyApplication.class);
 	}
+
+    @Bean
+    public User saveUser() throws ParseException {
+        User user = new User();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        String dateFromString = "05.12.2016";
+        String dateToString = "01.01.2017";
+        Date dateFrom = dateFormat.parse(dateFromString);
+        Date dateTo = dateFormat.parse(dateToString);
+
+        user.setDateTo(dateTo);
+        user.setDateFrom(dateFrom);
+        user.setCityFrom(new Location("Prague", "Czech republic", "prague_cz"));
+        List<Location> citiesTo = new ArrayList<Location>();
+        citiesTo.add(new Location("Wien", "Austria", "wien_at"));
+        user.setCitiesTo(citiesTo);
+        user.setDateFrom(new Date());
+        user.setEmailLogin("kubres@gmail.com");
+        user.setNightsInDestinationMin(4);
+        user.setNightsInDestinationMax(8);
+        user.setFlyDurationHoursMax(3);
+        user.setPassword("123");
+        user.setUserName("kubres");
+        user.setPctAvgPriceMax(0.6);
+        user.setFlyDurationHoursToMinutesMax(3);
+
+        userRepository.save(user);
+        return user;
+    }
+
+
+	@Bean
+    public List<Flight> loadFlights() throws IOException {
+        return flightService.saveFlightsFromJson("kubres@gmail.com");
+    }
 
 
     @Bean

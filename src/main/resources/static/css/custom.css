@@ -54,96 +54,38 @@ table#letenky th {
     background-color: black;
 }
 
-*::before, *::after {
-    box-sizing: border-box;
+li {
+    display: inline;
+    float: left;
 }
 
-*::before, *::after {
-    box-sizing: border-box;
-}
-
-.view-directory .course-listing {
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-.course-listing {
-    background-color: #f7f7f7;
-    border: 1px solid #f1f3f0;
-    border-radius: 9px;
-    box-shadow: 0 1px #f1f3f0;
-    cursor: pointer;
-    height: 390px;
-    margin-bottom: 50px;
-    padding: 0;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-.course-listing .course-box-image-container {
-    max-height: 208px;
-    overflow: hidden;
-}
-
-.course-listing .course-box-image-container .course-box-image {
-    border-bottom: 1px solid #ededed;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    display: block;
-    margin: auto;
+ul {
+    position: fixed;
+    top: 0;
     width: 100%;
-}
-
-img {
-    vertical-align: middle;
-}
-
-img {
-    border: 0 none;
-}
-
-.course-listing .course-listing-title {
-    color: #6cb44a;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 25px;
-    max-height: 70px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
-    padding: 16px 16px 4px;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
 }
 
-.course-listing .course-listing-subtitle {
-    color: #586f6f;
-    font-size: 14px;
-    font-weight: 200;
-    max-height: 65px;
-    overflow: hidden;
-    padding: 5px 16px;
+li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
-.course-listing .course-listing-extra-info .course-price {
-    color: #6eae50 !important;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 34px;
-    padding-right: 10px;
-    text-align: right;
+li a:hover:not(.active) {
+    background-color: #ddd;
 }
 
-.course-listing .course-listing-extra-info .course-author-name {
-    font-size: 15px;
-    font-weight: 200;
-    line-height: 30px;
-    max-height: 30px;
-    overflow: hidden;
-    padding-left: 5px;
-}
-
-.course-listing .course-listing-extra-info .course-bundle {
-    font-size: 15px;
-    font-weight: 200;
-    line-height: 30px;
+li a.active {
+    color: white;
+    background-color: #4CAF50;
 }
 
 .container {
@@ -157,11 +99,6 @@ img {
     color: #333;
 }
 
-/* custom styles for the typeahead */
-
-.tt-dropdown-menu {
-    text-align: left;
-}
 
 .typeahead,
 .tt-query,
@@ -186,43 +123,3 @@ img {
     border: 2px solid #0097cf;
 }
 
-.tt-query {
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-
-.tt-hint {
-    color: #999
-}
-
-.tt-dropdown-menu {
-    width: 422px;
-    margin-top: 12px;
-    padding: 8px 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
-}
-
-.tt-suggestion {
-    padding: 3px 20px;
-    font-size: 18px;
-    line-height: 24px;
-}
-
-.tt-suggestion.tt-is-under-cursor {
-    color: #fff;
-    background-color: #0097cf;
-
-}
-
-.tt-suggestion p {
-    margin: 0;
-}

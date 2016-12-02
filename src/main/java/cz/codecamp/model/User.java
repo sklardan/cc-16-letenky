@@ -16,19 +16,28 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
+
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="userId")
     private int userId;
-    @Column(name="emailLogin")
+
+    @Column(name="emailLogin",unique = true)
     private String emailLogin;
+
+    @Column(name="userName",unique = true)
+    private String userName;
+
     @Column(name="password")
     private String password;
-    @Column(name="cityFrom")
+
+    @JoinColumn(name="locationId")
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Location cityFrom;
 
     @JoinColumn(name = "locationId")
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER ,cascade = {CascadeType.ALL})
     @Column(name="citiesTo")
     private List<Location> citiesTo;
 
@@ -37,19 +46,17 @@ public class User {
     @Column(name="nightsInDestinationMax")
     private Integer nightsInDestinationMax;
     @Column(name="flyDurationMinutesMax")
-    private Long flyDurationMinutesMax;
+    private Integer flyDurationMinutesMax;
     @Column(name="flyDurationHoursMax")
     private Integer flyDurationHoursMax;
     @Column(name="pctAvgPriceMax")
-    private Float pctAvgPriceMax;
+    private Double pctAvgPriceMax;
 
     @Column(name="dateFrom")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateFrom;
 
     @Column(name="dateTo")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateTo;
 
@@ -61,18 +68,15 @@ public class User {
     public User() {
     }
 
-    public void addLocation(String cityTo, LocationRepository repository){
-        Location location = repository.findByCity(cityTo);
-        List<Location> locations = getCitiesTo();
-        locations.add(location);
-        setCitiesTo(locations);
-    }
+    public String getUserName() { return userName; }
 
-    public Float getPctAvgPriceMax() {
+    public void setUserName(String userName) { this.userName = userName; }
+
+    public Double getPctAvgPriceMax() {
         return pctAvgPriceMax;
     }
 
-    public void setPctAvgPriceMax(Float pctAvgPriceMax) {
+    public void setPctAvgPriceMax(Double pctAvgPriceMax) {
         this.pctAvgPriceMax = pctAvgPriceMax;
     }
 
@@ -132,16 +136,16 @@ public class User {
         this.nightsInDestinationMax = nightsInDestinationMax;
     }
 
-    public Long getFlyDurationMinutesMax() {
+    public Integer getFlyDurationMinutesMax() {
         return flyDurationMinutesMax;
     }
 
-    public void setFlyDurationMinutesMax(Long flyDurationMinutesMax) {
+    public void setFlyDurationMinutesMax(Integer flyDurationMinutesMax) {
         this.flyDurationMinutesMax = flyDurationMinutesMax;
     }
 
     public void setFlyDurationHoursToMinutesMax(Integer flyDurationHoursMax) {
-        this.flyDurationMinutesMax = Long.valueOf(flyDurationHoursMax*60);
+        this.flyDurationMinutesMax = flyDurationHoursMax*60;
     }
 
     public Integer getFlyDurationHoursMax() {

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Letenky pro Vás</title>
+
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+    <script src="../static/js/jquery-2.1.4.min.js"
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+    <link src="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+
+</head>
+<body>
+<div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
+    <div class="container">
+        <h1 th:text="${serverTime}"></h1>
+        <p class="lead" th:text="#{index.courses.tagline}">Tag line</p>
+    </div>
+</div>
+
+
+<ul class="navbar">
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/templates/cities.html}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/templates/flights.html}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/templates/settings.html}">Nastavení hledání</a></li>
+</ul>
+<ul class="navbar navbar-right">
+    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <a href="/registration" th:href="@{/templates/registration.html}>Registration</a>
+    </li>
+    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>
+    </li>
+    <li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">
+        <a href="/logout" th:href="@{/templates/logout.html}">Logout</a>
+    </li>
+</ul>
+
+<div class="container">
+    <div class="col-md-8 col-md-offset-2" style="overflow-x:auto;">
+        <h3>Letenky</h3>
+        <table id="letenky" style="width:100%">
+            <tr>
+                <th><h6>City From</h6></th>
+                <th><h6>City To</h6></th>
+                <th><h6>Price</h6></th>
+                <th><h6>Fly duration</h6></th>
+                <th><h6>Date</h6></th>
+                <th><h6>Nights in destination</h6></th>
+            </tr>
+
+            <tr th:each="flight : ${flights}">
+                <td th:text="${flight.getCityFrom()}">CityFrom</td>
+                <td th:text="${flight.getCityTo()}">CityTo</td>
+                <td th:text="${flight.getPrice()}">Price</td>
+                <td th:text="${flight.getFlightDurationMinutes()/60}">FlightDurationMinutes</td>
+                <td th:text="${flight.getDepTime()}">Price</td>
+                <td th:text="${flight.getNightsInDest()}">FlightDurationMinutes</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

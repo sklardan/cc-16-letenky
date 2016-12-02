@@ -12,6 +12,6 @@ import java.util.List;
 public interface EmailService {
 
     @Scheduled(fixedRate = 86400000) //24 hours cycle
-    public void sendEmailToUser(String loginName);
+    public void sendEmailToUsers();
 
 }

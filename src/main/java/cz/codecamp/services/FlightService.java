@@ -12,7 +12,11 @@ import java.util.List;
  */
 public interface FlightService {
 
-    List<Flight> getFlightsForUserAndParameters(String loginName);
+    List<Flight> getFlightsForUser(String loginName);
 
-    void saveFlightsFromJson(String loginName) throws JsonProcessingException, IOException;
+    List<Flight> getFlightsForUserToday(String loginName);
+
+    List<Flight> saveFlightsFromJson(String loginName) throws JsonProcessingException, IOException;
+
+
 }

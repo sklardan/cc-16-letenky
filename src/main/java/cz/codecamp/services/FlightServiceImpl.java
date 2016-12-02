@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -32,24 +33,26 @@ public class FlightServiceImpl implements FlightService {
 
     private final Logger log = LoggerFactory.getLogger(FlightServiceImpl.class);
 
-    private String typeFlight = "return";
+    private String typeFlight = "oneway";
     private Integer limit = 100;
 
     @Override
-    public void saveFlightsFromJson (String loginName) throws JsonProcessingException, IOException {
+    public List<Flight> saveFlightsFromJson (String emailLogin) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         Query query = new Query();
-        User user = userRepository.findByLoginName(loginName);
+        User user = userRepository.findByEmailLogin(emailLogin);
         Date dateFrom = user.getDateFrom();
         Date dateTo = user.getDateTo();
         Integer daysInFrom = user.getNightsInDestinationMin();
         Integer daysInTo = user.getNightsInDestinationMax();
         List<Location> citiesTo = user.getCitiesTo();
         String cityFrom = user.getCityFrom().getCode();
+        List<Flight> flights = new ArrayList<Flight>();
 
         for (Location loc : citiesTo){
             String cityTo = loc.getCode();
-            String queryString = query.buildQuery(daysInFrom,daysInTo,cityFrom,cityTo, typeFlight,limit);
+            String queryString = query.buildQuery(daysInFrom,daysInTo,cityFrom,cityTo,dateFrom, dateTo, typeFlight,limit);
+            System.out.println(queryString);
             ResponseEntity<String> response = restTemplate.getForEntity(queryString, String.class);
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.getBody());
@@ -74,40 +77,80 @@ public class FlightServiceImpl implements FlightService {
                     e.printStackTrace();
                 }
                 flightRepository.save(flight);
+                flights.add(flight);
+
             }
         }
+        return flights;
     }
 
     @Override
-    public List<Flight> getFlightsForUserAndParameters(String loginName) {
-        User user = userRepository.findByLoginName(loginName);
+    public List<Flight> getFlightsForUser(String emailLogin) {
+        User user = userRepository.findByEmailLogin(emailLogin);
         Date dateFrom = user.getDateFrom();
         Integer nightsInDestMin = user.getNightsInDestinationMin();
         Integer nightsInDestMax = user.getNightsInDestinationMax();
         List<Location> citiesTo = user.getCitiesTo();
         Location cityFrom = user.getCityFrom();
         String cityFromCode = cityFrom.getCode();
-        Long flyDurationMinutesMax = user.getFlyDurationMinutesMax();
-        Float threshold = user.getPctAvgPriceMax();
+        Integer flyDurationMinutesMax = user.getFlyDurationMinutesMax();
+        Double threshold = user.getPctAvgPriceMax();
+
+        //Setting average price
+        for (Location cityTo2: citiesTo) {
+            String cityToCode2 = cityTo2.getCode();
+            List<Flight> flightsTemp3 = flightRepository.findByCityFromAndCityTo(cityFromCode, cityToCode2);
+            Integer avgPrice;
+            Integer sum = 0;
+            for (Flight flight : flightsTemp3){
+                sum =+ flight.getPrice();
+
+            }
+            avgPrice = sum / flightsTemp3.size();
+            for (Flight flight : flightsTemp3){
+                flight.setAvgPrice(avgPrice);
+            }
+        }
+
 
         List<Flight> flights = new ArrayList<Flight>();
         List<Flight> flightsTemp2 = new ArrayList<Flight>();
         for (Location cityTo: citiesTo) {
             String cityToCode = cityTo.getCode();
             for (Integer nights = nightsInDestMin; nights <= nightsInDestMax; nights++ ) {
-                List<Flight> flightsTemp = flightRepository.findByParameters(cityFromCode, cityToCode, nights);
+                List<Flight> flightsTemp = flightRepository.findByCityFromAndCityToAndNightsInDest(cityFromCode, cityToCode, nights);
                 flightsTemp2.addAll(flightsTemp);
             }
         }
         for (Flight flight: flightsTemp2) {
             if (flight.getDepTime().getTime() >= dateFrom.getTime()){
                 if (flight.getFlyDurationMinutes() < flyDurationMinutesMax){
-//                    if ((flight.getPrice() / flight.getAvgPrice()) <= threshold) {
+
+                    if ((flight.getPrice() / flight.getAvgPrice()) <= threshold) {
                         flights.add(flight);
-//                    }
+                    }
                 }
             }
         }
         return flights;
     }
+
+
+    @Override
+    public List<Flight> getFlightsForUserToday(String emailLogin) {
+        Date today = new Date();
+        String todayString = new SimpleDateFormat("dd.MM.yyyy").format(today);
+        List<Flight> flightsToday = new ArrayList<Flight>();
+        List<Flight> flights = getFlightsForUser(emailLogin);
+        for (Flight flight : flights){
+            String dateAddedString = flight.getDateAdded().toString();
+            if (todayString == dateAddedString) {
+                flightsToday.add(flight);
+            }
+        }
+        return flightsToday;
+
+
+    }
+
 }

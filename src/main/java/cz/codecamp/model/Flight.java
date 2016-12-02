@@ -24,7 +24,6 @@ public class Flight {
     private long flightId;
 
     @Column(name="dateAdded")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateAdded;
     @Column(name="cityFrom")
@@ -33,18 +32,22 @@ public class Flight {
     private String cityTo;
     @Column(name="price")
     private int price;
+
     @Column(name="avgPrice")
     private int avgPrice;
-    @Column(name="nightsIdDest")
+    @Column(name="nightsInDest")
     private int nightsInDest;
     @Column(name="flyDurationMinutes")
     private Long flyDurationMinutes;
+
     @Column(name="depTime")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date depTime;
     @Column(name="score")
     private Integer score;
+
+
+
+//    private FlightRepository flightRepository;
 
     DateFormat format = new SimpleDateFormat("HH- mm-");
 
@@ -61,6 +64,7 @@ public class Flight {
         Date flyDurationDate = format.parse(flyDur);
         this.flyDurationMinutes = flyDurationDate.getTime() / 60000;
         this.depTime=new Date((long)dTimeStamp*1000);
+        this.dateAdded = new Date();
 
     }
 
@@ -93,16 +97,6 @@ public class Flight {
 
     public void setFlightId(long flightId) {
         this.flightId = flightId;
-    }
-
-    public int getAvgPrice(FlightRepository repository) {
-        List<Flight> flights = repository.findByCityFromAndCityTo(getCityFrom(),getCityTo());
-        Integer avgPrice = 0;
-        for (Flight flight : flights){
-            Integer sum =+ flight.getPrice();
-            avgPrice = sum / flights.size();
-        }
-        return avgPrice;
     }
 
     public String getCityFrom() {
@@ -166,4 +160,8 @@ public class Flight {
     public void setFormat(DateFormat format) {
         this.format = format;
     }
+
+    public int getAvgPrice() { return avgPrice; }
+
+    public void setAvgPrice(int avgPrice) { this.avgPrice = avgPrice; }
 }

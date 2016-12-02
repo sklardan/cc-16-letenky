@@ -22,12 +22,29 @@
     </div>
 </div>
 
+<ul class="navbar">
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/cities}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/flights}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
+</ul>
+<ul class="navbar navbar-right">
+    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
+        <!--<a href="/registration" th:href="@{/templates/registration.html}>Registration</a>-->
+    <!--</li>-->
+    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
+        <!--<a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>-->
+    <!--</li>-->
+    <!--<li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">-->
+        <!--<a href="/logout" th:href="@{/templates/logout.html}">Logout</a>-->
+    <!--</li>-->
+</ul>
+
 <div class="container">
     <div class="row">
         <div class="col-md-5 col-md-offset-4">
             <h2>Login</h2>
             <div>
-                <form class="form-horizontal" th:object="${loginCommand}" th:action="@{/login}" method="post">
+                <form class="form-horizontal" th:object="${loginCommand}" th:action="@{/signin}" method="post">
 
                     <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
                         <p th:text="#{loginCommand.hasErrors}">Error Message</p>

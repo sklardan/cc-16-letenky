@@ -1,11 +1,14 @@
 package cz.codecamp.controllers;
 
+import cz.codecamp.model.User;
 import cz.codecamp.repository.FlightRepository;
+import cz.codecamp.repository.UserRepository;
 import cz.codecamp.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,52 +23,17 @@ import java.util.List;
 @Controller
 public class FlightsShowController {
 
-
     private FlightService flightService;
+    private UserRepository userRepository;
 
-    @Autowired
-    FlightRepository flightRepository;
-
-    @Autowired
-    public void setFlightService(FlightService flightService) {
-        this.flightService = flightService;
-    }
-
-
-    @RequestMapping(value = "letenky/{emailLogin}", method = RequestMethod.GET)
-    public ModelAndView getFlights(){
-        ModelAndView modelAndView = new ModelAndView("prehled-letenek");
-        modelAndView.addObject("serverTime", new Date());
-//        modelAndView.addObject("letenky", flightService.getFlightsForUserAndParameters(emailLogin));
+    @RequestMapping(value = "flights/{userName}", method = RequestMethod.GET)
+    public ModelAndView getFlights(@PathVariable String userName){
+        ModelAndView modelAndView = new ModelAndView("flights");
+        User user = userRepository.findByUserName(userName);
+        String emailLogin = user.getEmailLogin();
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("flights", flightService.getFlightsForUser(emailLogin));
         return modelAndView;
-    }
-
-
-    @RequestMapping(value = "message", method = RequestMethod.GET)
-    public String messages(Model model) {
-        model.addAttribute("messages", flightRepository.findAll());
-        return "message/list";
-    }
-
-    @RequestMapping(value = "messages", method = RequestMethod.GET)
-    public ModelAndView messages() {
-        ModelAndView mav = new ModelAndView("message/list");
-        mav.addObject("messages", flightRepository.findAll());
-        return mav;
-    }
-
-
-    @RequestMapping("/product")
-    public String getFlight(){
-        return "redirect:/index";
-    }
-
-
-    @ModelAttribute("planets")
-    public List<String> populatePlanets() {
-        return Arrays.asList(new String[] {
-                "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"
-        });
     }
 
 }

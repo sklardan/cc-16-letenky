@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Logout</title>
+    <title>Letenky pro Vás</title>
 
     <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
           th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
@@ -10,7 +10,30 @@
     <script src="../static/js/jquery-2.1.4.min.js"
             th:src="@{/js/jquery-2.1.4.min.js}"></script>
 
-    <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+    <!--<script src="../static/js/Typeahead.js"-->
+            <!--th:src="@{/js/Typeahead.js}"></script>-->
+
+    <!--<script src="../static/js/typeahead.min.js"></script>-->
+    <link rel="stylesheet" href="/vendor/jquery-typeahead/dist/jquery.typeahead.min.css">
+    <script src="/vendor/jquery-typeahead/dist/jquery.typeahead.min.js"></script>
+
+    <script type="text/javascript">
+        // Waiting for the DOM ready...
+        $(function(){
+
+            // applied typeahead to the text input box
+            $('#my-input').typeahead({
+                name: 'countries',
+
+                // data source
+                prefetch: '../data/cities.json',
+
+                // max item numbers list in the dropdown
+                limit: 10
+            });
+
+        });
+    </script>
 
     <link rel="stylesheet" href="/vendor/jquery-typeahead/dist/jquery.typeahead.min.css">
     <script src="/vendor/jquery-typeahead/dist/jquery.typeahead.min.js"></script>
@@ -128,7 +151,7 @@
                             "city": "Grenoble"
                         }
                     ]
-        }
+                }
             },
             callback: {
 //                onClickBefore: function () { ... }
@@ -136,9 +159,11 @@
         });
     </script>
 
+
+    <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+
 </head>
 <body>
-
 <div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
     <div class="container">
         <h1 th:text="#{index.page.title}"></h1>
@@ -146,10 +171,42 @@
     </div>
 </div>
 
+<ul class="navbar">
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/templates/cities.html}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/templates/flights.html}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/templates/settings.html}">Nastavení hledání</a></li>
+</ul>
+<ul class="navbar navbar-right">
+    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <a href="/registration" th:href="@{/templates/registration.html}>Registration</a>
+    </li>
+    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>
+    </li>
+    <li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">
+        <a href="/logout" th:href="@{/templates/logout.html}">Logout</a>
+    </li>
+</ul>
 
-<form>
-    <div class="typeahead__container">
-        <div class="typeahead__field">
+
+<div class="container">
+    <div class="col-md-4 col-md-offset-2" style="overflow-x:auto;">
+        <h3>Výběr míst</h3>
+        <table id="letenky" style="width:100%">
+            <tr>
+                <th><h4>Cities</h4></th>
+                <th><h4>Countries</h4></th>
+            </tr>
+            <tr th:each="cac : ${citiesAndCountries}">
+                <td th:text="${cac.key}">City</td>
+                <td th:text="${cac.value}">Country</td>
+            </tr>
+        </table>
+    </div>
+
+    <form>
+        <div class="typeahead__container">
+            <div class="typeahead__field">
 
             <span class="typeahead__query">
                 <input class="js-typeahead"
@@ -157,23 +214,29 @@
                        type="search"
                        autocomplete="off">
             </span>
-            <span class="typeahead__button">
+                <span class="typeahead__button">
                 <button type="submit">
                     <span class="typeahead__search-icon"></span>
                 </button>
             </span>
 
+            </div>
+        </div>
+    </form>
+
+    <div class="col-md-4">
+        <div>
+            <form class="form-horizontal" th:object="${destinationCommand}" th:action="@{/choose-destination}" method="post">
+                <div class="form-group"
+                     th:class="${#fields.hasErrors('cityTo')} ? 'form-group has-error' : 'form-group'">
+                    <label class="col-sm-10 control-label">Add new destination:</label>
+                    <div class="col-sm-10">
+                        <input class="typeahead" type="text" placeholder="Cities of Europe" name="cityTo" id="cityTo"/>
+                        <br>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</form>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-5 col-md-offset-4">
-            <h2>You are Logged Out</h2>
-        </div>
-    </div>
-</div>
 </body>
 </html>

@@ -16,17 +16,14 @@ public class Location {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="locationId")
     private int locationId;
-    @Column(name="city")
+    @Column(name="city", unique = true)
     private String city;
     @Column(name="country")
     private String country;
-    @Column(name="code")
+    @Column(name="code", unique = true)
     private String code;
 
-    @JoinColumn(name = "userId")
-    @ManyToMany
-    @Column(name="users")
-    private List<User> users;
+    public Location(){};
 
     public Location(String city, String country, String code) {
         this.city = city;
@@ -66,13 +63,13 @@ public class Location {
         this.code = code;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+//    public List<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
 
     @Override
     public String toString() {
