@@ -18,9 +18,9 @@ public class SettingsController {
 
     private UserRepository userRepository;
 
-    @RequestMapping(value = "settings/{userName}", method = RequestMethod.POST)
+    @RequestMapping(value = "settings", method = RequestMethod.POST)
     public ModelAndView getSettings(@PathVariable String userName){
-        ModelAndView modelAndView = new ModelAndView("nastaveni-hledani");
+        ModelAndView modelAndView = new ModelAndView("settings");
         User user = userRepository.findByUserName(userName);
         modelAndView.addObject("user",user);
         return modelAndView;

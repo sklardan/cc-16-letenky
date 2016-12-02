@@ -28,7 +28,7 @@ public class FlightsShowController {
 
     @RequestMapping(value = "flights/{userName}", method = RequestMethod.GET)
     public ModelAndView getFlights(@PathVariable String userName){
-        ModelAndView modelAndView = new ModelAndView("prehled-letenek");
+        ModelAndView modelAndView = new ModelAndView("flights");
         User user = userRepository.findByUserName(userName);
         String emailLogin = user.getEmailLogin();
         modelAndView.addObject("user", user);

@@ -23,9 +23,9 @@
 
 
 <ul class="navbar">
-    <li class="navbar"><a class="active" href="/cities" th:href="@{/vyber-mist.html}">Výběr míst</a></li>
-    <li class="navbar"><a href="/flights" th:href="@{/prehled-letenek.html}">Letenky</a></li>
-    <li class="navbar"><a href="/settings" th:href="@{/nastaveni-hledani.html}">Nastavení hledání</a></li>
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/templates/cities.html}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/templates/flights.html}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/templates/settings.html}">Nastavení hledání</a></li>
 </ul>
 <ul class="navbar navbar-right">
     <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">

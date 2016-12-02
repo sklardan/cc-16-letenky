@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface LocationRepository extends CrudRepository<User, Long> {
+public interface LocationRepository extends CrudRepository<Location, Long> {
 
     Location findByCode(String code);
     Location findByCity(String city);

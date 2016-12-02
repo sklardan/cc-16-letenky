@@ -32,9 +32,10 @@ public class Flight {
     private String cityTo;
     @Column(name="price")
     private int price;
+
     @Column(name="avgPrice")
     private int avgPrice;
-    @Column(name="nightsIn<Dest")
+    @Column(name="nightsInDest")
     private int nightsInDest;
     @Column(name="flyDurationMinutes")
     private Long flyDurationMinutes;
@@ -44,7 +45,9 @@ public class Flight {
     @Column(name="score")
     private Integer score;
 
-    private FlightRepository flightRepository;
+
+
+//    private FlightRepository flightRepository;
 
     DateFormat format = new SimpleDateFormat("HH- mm-");
 
@@ -61,6 +64,7 @@ public class Flight {
         Date flyDurationDate = format.parse(flyDur);
         this.flyDurationMinutes = flyDurationDate.getTime() / 60000;
         this.depTime=new Date((long)dTimeStamp*1000);
+        this.dateAdded = new Date();
 
     }
 
@@ -93,16 +97,6 @@ public class Flight {
 
     public void setFlightId(long flightId) {
         this.flightId = flightId;
-    }
-
-    public int getAvgPrice() {
-        List<Flight> flights = flightRepository.findByCityFromAndCityTo(getCityFrom(),getCityTo());
-        Integer avgPrice = 0;
-        for (Flight flight : flights){
-            Integer sum =+ flight.getPrice();
-            avgPrice = sum / flights.size();
-        }
-        return avgPrice;
     }
 
     public String getCityFrom() {
@@ -166,4 +160,8 @@ public class Flight {
     public void setFormat(DateFormat format) {
         this.format = format;
     }
+
+    public int getAvgPrice() { return avgPrice; }
+
+    public void setAvgPrice(int avgPrice) { this.avgPrice = avgPrice; }
 }

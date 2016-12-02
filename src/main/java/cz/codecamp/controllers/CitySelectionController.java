@@ -20,9 +20,9 @@ public class CitySelectionController {
 
     private UserRepository userRepository;
 
-    @RequestMapping(value = "cities/{userName}", method = RequestMethod.GET)
+    @RequestMapping(value = "cities", method = RequestMethod.GET)
     public ModelAndView getCities(@PathVariable String userName){
-        ModelAndView modelAndView = new ModelAndView("vyber-mist");
+        ModelAndView modelAndView = new ModelAndView("cities");
         User user = userRepository.findByUserName(userName);
         Map<String,String> citiesAndCountries = new HashMap<String, String>();
         for (Location loc : user.getCitiesTo()){
