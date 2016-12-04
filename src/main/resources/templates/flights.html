@@ -16,28 +16,27 @@
 <body>
 <div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
     <div class="container">
-        <h1 th:text="${serverTime}"></h1>
         <p class="lead" th:text="#{index.courses.tagline}">Tag line</p>
     </div>
 </div>
 
 
 <ul class="navbar">
-    <li class="navbar"><a class="active" href="/cities" th:href="@{/templates/cities.html}">Výběr míst</a></li>
-    <li class="navbar"><a href="/flights" th:href="@{/templates/flights.html}">Letenky</a></li>
-    <li class="navbar"><a href="/settings" th:href="@{/templates/settings.html}">Nastavení hledání</a></li>
+    <li class="navbar"><a href="/cities" th:href="@{/cities}">Výběr míst</a></li>
+    <li class="navbar"><a class="active" href="/flights" th:href="@{/flights}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
 </ul>
-<ul class="navbar navbar-right">
-    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
-        <a href="/registration" th:href="@{/templates/registration.html}>Registration</a>
-    </li>
-    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
-        <a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>
-    </li>
-    <li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">
-        <a href="/logout" th:href="@{/templates/logout.html}">Logout</a>
-    </li>
-</ul>
+<!--<ul class="navbar navbar-right">-->
+    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
+        <!--<a href="/registration" th:href="@{/templates/registration.html}>Registration</a>-->
+    <!--</li>-->
+    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
+        <!--<a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>-->
+    <!--</li>-->
+    <!--<li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">-->
+        <!--<a href="/logout" th:href="@{/templates/logout.html}">Logout</a>-->
+    <!--</li>-->
+<!--</ul>-->
 
 <div class="container">
     <div class="col-md-8 col-md-offset-2" style="overflow-x:auto;">
@@ -47,18 +46,18 @@
                 <th><h6>City From</h6></th>
                 <th><h6>City To</h6></th>
                 <th><h6>Price</h6></th>
-                <th><h6>Fly duration</h6></th>
+                <th><h6>Average price</h6></th>
+                <th><h6>Fly duration minutes</h6></th>
                 <th><h6>Date</h6></th>
-                <th><h6>Nights in destination</h6></th>
             </tr>
 
             <tr th:each="flight : ${flights}">
-                <td th:text="${flight.getCityFrom()}">CityFrom</td>
-                <td th:text="${flight.getCityTo()}">CityTo</td>
-                <td th:text="${flight.getPrice()}">Price</td>
-                <td th:text="${flight.getFlightDurationMinutes()/60}">FlightDurationMinutes</td>
-                <td th:text="${flight.getDepTime()}">Price</td>
-                <td th:text="${flight.getNightsInDest()}">FlightDurationMinutes</td>
+                <td th:text="${flight.cityFrom}">CityFrom</td>
+                <td th:text="${flight.cityTo}">CityTo</td>
+                <td th:text="${flight.price}">Price</td>
+                <td th:text="${flight.avgPrice}">Avegare price</td>
+                <td th:text="${flight.flyDurationMinutes}">FlyDurationMinutes</td>
+                <td th:text="${flight.depDate}">Price</td>
             </tr>
         </table>
     </div>

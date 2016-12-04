@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by jakubbares on 11/13/16.
@@ -33,39 +34,30 @@ public class Flight {
     @Column(name="price")
     private int price;
 
+    @Column(name="flyDurationMinutes")
+    private Integer flyDurationMinutes;
+
     @Column(name="avgPrice")
     private int avgPrice;
-    @Column(name="nightsInDest")
-    private int nightsInDest;
-    @Column(name="flyDurationMinutes")
-    private Long flyDurationMinutes;
 
-    @Column(name="depTime")
-    private Date depTime;
+    @Column(name="depDate")
+    private Date depDate;
+
     @Column(name="score")
     private Integer score;
 
-
-
-//    private FlightRepository flightRepository;
-
-    DateFormat format = new SimpleDateFormat("HH- mm-");
-
+    private static final AtomicInteger count = new AtomicInteger(1);
 
     public Flight() {}
 
-    public Flight(String cFrom, String cTo, int pri, int nights, String flyDur, int dTimeStamp) throws ParseException {
+    public Flight(String cityFrom, String cityTo, int price, Integer flyDur, long dTimeStamp) {
+        this.flightId =  count.incrementAndGet();
+        this.cityFrom = cityFrom;
+        this.cityTo = cityTo;
+        this.price = price;
+        this.flyDurationMinutes = flyDur;
+        this.depDate=new Date(dTimeStamp);
         this.dateAdded = new Date();
-        this.cityFrom = cFrom;
-        this.cityTo = cTo;
-        this.price = pri;
-        this.nightsInDest = nights;
-        flyDur = flyDur.replace('h','-').replace('m','-');
-        Date flyDurationDate = format.parse(flyDur);
-        this.flyDurationMinutes = flyDurationDate.getTime() / 60000;
-        this.depTime=new Date((long)dTimeStamp*1000);
-        this.dateAdded = new Date();
-
     }
 
     @Override
@@ -75,10 +67,8 @@ public class Flight {
                 ", cityFrom='" + cityFrom + '\'' +
                 ", cityTo='" + cityTo + '\'' +
                 ", price=" + price +
-                ", nightsInDest=" + nightsInDest +
                 ", flyDurationMinutes=" + flyDurationMinutes +
-                ", depTime=" + depTime +
-                ", score=" + score +
+                ", depDate=" + depDate +
                 '}';
     }
 
@@ -123,26 +113,18 @@ public class Flight {
         this.price = price;
     }
 
-    public int getNightsInDest() {
-        return nightsInDest;
-    }
+    public Integer getFlyDurationMinutes() { return flyDurationMinutes;}
 
-    public void setNightsInDest(int nightsInDest) {
-        this.nightsInDest = nightsInDest;
-    }
-
-    public Long getFlyDurationMinutes() { return flyDurationMinutes;}
-
-    public void setFlyDurationMinutes(Long flyDurationMinutes) {
+    public void setFlyDurationMinutes(Integer flyDurationMinutes) {
         this.flyDurationMinutes = flyDurationMinutes;
     }
 
-    public Date getDepTime() {
-        return depTime;
+    public Date getDepDate() {
+        return depDate;
     }
 
-    public void setDepTime(Date depTime) {
-        this.depTime = depTime;
+    public void setDepDate(Date depDate) {
+        this.depDate = depDate;
     }
 
     public Integer getScore() {
@@ -151,14 +133,6 @@ public class Flight {
 
     public void setScore(Integer score) {
         this.score = score;
-    }
-
-    public DateFormat getFormat() {
-        return format;
-    }
-
-    public void setFormat(DateFormat format) {
-        this.format = format;
     }
 
     public int getAvgPrice() { return avgPrice; }

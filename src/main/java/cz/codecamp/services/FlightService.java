@@ -16,7 +16,7 @@ public interface FlightService {
 
     List<Flight> getFlightsForUserToday(String loginName);
 
-    List<Flight> saveFlightsFromJson(String loginName) throws JsonProcessingException, IOException;
+    List<Flight> saveFlightsFromJson() throws IOException;
 
 
 }

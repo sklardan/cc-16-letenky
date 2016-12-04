@@ -6,6 +6,7 @@ import cz.codecamp.model.Location;
 import cz.codecamp.model.User;
 import cz.codecamp.repository.UserRepository;
 import cz.codecamp.services.FlightService;
+import cz.codecamp.services.FlightServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -72,32 +74,38 @@ public class LetenkyApplication {
         Date dateFrom = dateFormat.parse(dateFromString);
         Date dateTo = dateFormat.parse(dateToString);
 
-        user.setDateTo(dateTo);
-        user.setDateFrom(dateFrom);
         user.setCityFrom(new Location("Prague", "Czech republic", "prague_cz"));
         List<Location> citiesTo = new ArrayList<Location>();
-        citiesTo.add(new Location("Wien", "Austria", "wien_at"));
+        citiesTo.add(new Location("Vienna", "Austria", "vienna_at"));
+        citiesTo.add(new Location("Berlin", "Germany", "berlin_de"));
         user.setCitiesTo(citiesTo);
+        user.setDateTo(dateTo);
         user.setDateFrom(new Date());
         user.setEmailLogin("kubres@gmail.com");
-        user.setNightsInDestinationMin(4);
-        user.setNightsInDestinationMax(8);
-        user.setFlyDurationHoursMax(3);
         user.setPassword("123");
         user.setUserName("kubres");
-        user.setPctAvgPriceMax(0.6);
-        user.setFlyDurationHoursToMinutesMax(3);
+        user.setPctAvgPriceMax(0.7);
+        user.setFlyDurationHoursToMinutesMax(6);
 
-        userRepository.save(user);
+        try{
+            userRepository.save(user);
+        } catch(Exception e) {
+            System.err.println("Caught Exception: " + e.getMessage());
+        }
         return user;
     }
 
-
-	@Bean
-    public List<Flight> loadFlights() throws IOException {
-        return flightService.saveFlightsFromJson("kubres@gmail.com");
+    @Bean
+    public List<Flight> testJson() throws IOException {
+        return flightService.saveFlightsFromJson();
     }
 
+    @Bean
+    public List<Flight> testFlights() {
+        List<Flight> flights = flightService.getFlightsForUser("kubres@gmail.com");
+        System.out.println(flights);
+        return flights;
+    }
 
     @Bean
     public Properties properties() {
