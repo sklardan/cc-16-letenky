@@ -15,9 +15,6 @@
 </head>
 <body>
 <div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
-    <div class="container">
-        <p class="lead" th:text="#{index.courses.tagline}">Tag line</p>
-    </div>
 </div>
 
 
@@ -26,38 +23,26 @@
     <li class="navbar"><a class="active" href="/flights" th:href="@{/flights}">Letenky</a></li>
     <li class="navbar"><a href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
 </ul>
-<!--<ul class="navbar navbar-right">-->
-    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
-        <!--<a href="/registration" th:href="@{/templates/registration.html}>Registration</a>-->
-    <!--</li>-->
-    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
-        <!--<a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>-->
-    <!--</li>-->
-    <!--<li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">-->
-        <!--<a href="/logout" th:href="@{/templates/logout.html}">Logout</a>-->
-    <!--</li>-->
-<!--</ul>-->
 
 <div class="container">
-    <div class="col-md-8 col-md-offset-2" style="overflow-x:auto;">
-        <h3>Letenky</h3>
-        <table id="letenky" style="width:100%">
+    <div class="col-md-10 col-md-offset-2">
+        <table class="table-striped" style="width:100%">
             <tr>
-                <th><h6>City From</h6></th>
-                <th><h6>City To</h6></th>
-                <th><h6>Price</h6></th>
-                <th><h6>Average price</h6></th>
-                <th><h6>Fly duration minutes</h6></th>
-                <th><h6>Date</h6></th>
+                <th><h5>City From</h5></th>
+                <th><h5>City To</h5></th>
+                <th><h5>Price</h5></th>
+                <th><h5>Average price</h5></th>
+                <th><h5>Fly duration minutes</h5></th>
+                <th><h5>Date</h5></th>
             </tr>
 
             <tr th:each="flight : ${flights}">
                 <td th:text="${flight.cityFrom}">CityFrom</td>
                 <td th:text="${flight.cityTo}">CityTo</td>
                 <td th:text="${flight.price}">Price</td>
-                <td th:text="${flight.avgPrice}">Avegare price</td>
+                <td th:text="${flight.avgPrice}">Average price</td>
                 <td th:text="${flight.flyDurationMinutes}">FlyDurationMinutes</td>
-                <td th:text="${flight.depDate}">Price</td>
+                <td th:text="${flight.depDate}">Date</td>
             </tr>
         </table>
     </div>

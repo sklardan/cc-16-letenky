@@ -23,17 +23,11 @@ public class CitySelectionController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping(value = "cities", method = RequestMethod.GET)
+    @RequestMapping(value = "cities2", method = RequestMethod.GET)
     public ModelAndView getCities(@RequestParam("u") String userName){
         ModelAndView modelAndView = new ModelAndView("cities");
         User user = userRepository.findByUserName(userName);
-//        Map<String,String> citiesAndCountries = new HashMap<String, String>();
 
-//        for (Location loc : user.getCitiesTo()){
-//            String city = loc.getCity();
-//            String country = loc.getCountry();
-//            citiesAndCountries.put(city, country);
-//        }
         modelAndView.addObject("user",user);
         modelAndView.addObject("locations", user.getCitiesTo());
         return modelAndView;

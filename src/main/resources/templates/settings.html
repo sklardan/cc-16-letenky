@@ -23,15 +23,45 @@
     <li class="navbar"><a class="active" href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
 </ul>
 
-<div class="form">
-    <h1>Location</h1>
-    <form action="#" th:action="@{/testset}" th:object="${user}" method="post">
-        <p>Ratio of average price: <input type="text" th:field="*{pctAvgPriceMax}" /></p>
-        <p>Max flight duration in minutes: <input type="text" th:field="*{flyDurationMinutesMax}" /></p>
-        <p>Date to: <input type="text" th:field="*{dateFrom}" /></p>
-        <p>Date from: <input type="text" th:field="*{dateTo}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+<div class="container">
+    <div class="col-md-8 col-md-offset-4">
+        <div class="form">
+            <form action="#" th:action="@{/settings}" th:object="${user}" method="post">
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="cityFrom">City from: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="cityFrom" th:field="*{cityFrom.city}" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="pctAvgPriceMax">Ratio of average price: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="pctAvgPriceMax" th:field="*{pctAvgPriceMax}" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="flyDurationMinutesMax">Max flight duration in minutes: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="flyDurationMinutesMax" th:field="*{flyDurationMinutesMax}" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="dateFrom">Date from: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="dateFrom" th:field="*{dateFrom}" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="dateTo">Date to: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="dateTo" th:field="*{dateTo}" />
+                    </div>
+                </div>
+
+                <p><input type="submit" class="btn btn-default" value="Submit" /> <input type="reset" class="btn btn-default" value="Reset" /></p>
+            </form>
+        </div>
+    </div>
 </div>
 
 

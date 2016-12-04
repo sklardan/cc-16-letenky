@@ -7,6 +7,7 @@ import cz.codecamp.model.Flight;
 import cz.codecamp.model.Location;
 import cz.codecamp.model.User;
 import cz.codecamp.repository.FlightRepository;
+import cz.codecamp.repository.LocationRepository;
 import cz.codecamp.repository.UserRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,6 +37,9 @@ public class FlightServiceImpl implements FlightService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    LocationRepository locationRepository;
 
     private final Logger log = LoggerFactory.getLogger(FlightServiceImpl.class);
 
@@ -79,7 +83,7 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getFlightsForUser(String emailLogin) {
         User user = userRepository.findByEmailLogin(emailLogin);
         Date dateFrom = user.getDateFrom();
-        List<Location> citiesTo = user.getCitiesTo();
+        Iterable<Location> citiesTo = user.getCitiesTo();
         Location cityFrom = user.getCityFrom();
         String cityFromCode = cityFrom.getCode();
         Integer flyDurationMinutesMax = user.getFlyDurationMinutesMax();
