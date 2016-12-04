@@ -1,24 +1,29 @@
-package cz.codecamp.classes;
+package cz.codecamp.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jakubbares on 11/13/16.
  */
 
 @Entity
+@Table(name = "locations")
 public class Location {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="locationId")
     private int locationId;
-    @Column(name="city")
+    @Column(name="city", unique = true)
     private String city;
     @Column(name="country")
     private String country;
-    @Column(name="code")
+    @Column(name="code", unique = true)
     private String code;
+
+    public Location(){};
 
     public Location(String city, String country, String code) {
         this.city = city;
@@ -57,6 +62,14 @@ public class Location {
     public void setCode(String code) {
         this.code = code;
     }
+
+//    public List<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
 
     @Override
     public String toString() {

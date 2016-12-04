@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Letenky pro Vás</title>
+
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+    <script src="../static/js/jquery-2.1.4.min.js"
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+
+    <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+
+</head>
+<body>
+<div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
+</div>
+
+<ul class="navbar">
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/cities}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/flights}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
+</ul>
+
+
+<div class="container">
+    <div class="col-md-6 col-md-offset-3" >
+        <h3>Výběr míst</h3>
+        <table class="table-striped" style="width:100%">
+            <tr>
+                <th><h5>Cities</h5></th>
+                <th><h5>Countries</h5></th>
+            </tr>
+
+            <tr th:each="location  : ${citiesTo}">
+                <td th:text="${location.city}"></td>
+                <td th:text="${location.country}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="form">
+            <form action="#" th:action="@{/cities}" th:object="${location}" method="post">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pctAvgPriceMax">Id: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="pctAvgPriceMax" th:field="*{locationId}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="flyDurationMinutesMax">City: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="flyDurationMinutesMax" th:field="*{city}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dateFrom">Country: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="dateFrom" th:field="*{country}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dateTo">Code: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="dateTo" th:field="*{code}" />
+                    </div>
+                </div>
+                <p><input type="submit" class="btn btn-default" value="Submit" /> <input type="reset" class="btn btn-default" value="Reset" /></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--<div class="form">-->
+    <!--<h4>Add new location</h4>-->
+    <!--<form action="#" th:action="@{/cities}" th:object="${location}" method="post">-->
+        <!--<p>Id: <input type="text" th:field="*{id}" /></p>-->
+        <!--<p>City: <input type="text" th:field="*{city}" /></p>-->
+        <!--<p>Country: <input type="text" th:field="*{country}" /></p>-->
+        <!--<p>Code: <input type="text" th:field="*{code}" /></p>-->
+        <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+    <!--</form>-->
+<!--</div>-->
+
+
+<!--<div class="form">-->
+    <!--<h1>City</h1>-->
+    <!--<form action="#" th:action="@{/addcity}"  method="post">-->
+        <!--<p>City you want to fly to: <input type="text" th:object="${city}" /></p>-->
+        <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+    <!--</form>-->
+<!--</div>-->
+
+    <!--<div class="col-md-4">-->
+        <!--<div>-->
+            <!--<form class="form-horizontal" th:object="${destinationCommand}" th:action="@{/choose-destination}" method="post">-->
+                <!--<div class="form-group"-->
+                     <!--th:class="${#fields.hasErrors('cityTo')} ? 'form-group has-error' : 'form-group'">-->
+                    <!--<label class="col-sm-10 control-label">Add new destination:</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<input class="typeahead" type="text" placeholder="Cities of Europe" name="cityTo" id="cityTo"/>-->
+                        <!--<br>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</div>-->
+</body>
+</html>

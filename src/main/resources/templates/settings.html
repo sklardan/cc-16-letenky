@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Nastavení hledání</title>
+
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+    <script src="../static/js/jquery-2.1.4.min.js"
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+    <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+
+</head>
+<body>
+<div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
+</div>
+
+<ul class="navbar">
+    <li class="navbar"><a href="/cities" th:href="@{/cities}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/flights}">Letenky</a></li>
+    <li class="navbar"><a class="active" href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
+</ul>
+
+<div class="container">
+    <div class="col-md-8 col-md-offset-4">
+        <div class="form">
+            <form action="#" th:action="@{/settings}" th:object="${user}" method="post">
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="cityFrom">City from: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="cityFrom" th:field="*{cityFrom.city}" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="pctAvgPriceMax">Ratio of average price: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="pctAvgPriceMax" th:field="*{pctAvgPriceMax}" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="flyDurationMinutesMax">Max flight duration in minutes: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="flyDurationMinutesMax" th:field="*{flyDurationMinutesMax}" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="dateFrom">Date from: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="dateFrom" th:field="*{dateFrom}" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="control-label col-sm-4" for="dateTo">Date to: </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="dateTo" th:field="*{dateTo}" />
+                    </div>
+                </div>
+
+                <p><input type="submit" class="btn btn-default" value="Submit" /> <input type="reset" class="btn btn-default" value="Reset" /></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

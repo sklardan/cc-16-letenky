@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Letenky pro Vás</title>
+
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+    <script src="../static/js/jquery-2.1.4.min.js"
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+    <link src="../static/css/custom.css" th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+
+</head>
+<body>
+<div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
+</div>
+
+
+<ul class="navbar">
+    <li class="navbar"><a href="/cities" th:href="@{/cities}">Výběr míst</a></li>
+    <li class="navbar"><a class="active" href="/flights" th:href="@{/flights}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
+</ul>
+
+<div class="container">
+    <div class="col-md-10 col-md-offset-2">
+        <table class="table-striped" style="width:100%">
+            <tr>
+                <th><h5>City From</h5></th>
+                <th><h5>City To</h5></th>
+                <th><h5>Price</h5></th>
+                <th><h5>Average price</h5></th>
+                <th><h5>Fly duration minutes</h5></th>
+                <th><h5>Date</h5></th>
+            </tr>
+
+            <tr th:each="flight : ${flights}">
+                <td th:text="${flight.cityFrom}">CityFrom</td>
+                <td th:text="${flight.cityTo}">CityTo</td>
+                <td th:text="${flight.price}">Price</td>
+                <td th:text="${flight.avgPrice}">Average price</td>
+                <td th:text="${flight.flyDurationMinutes}">FlyDurationMinutes</td>
+                <td th:text="${flight.depDate}">Date</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

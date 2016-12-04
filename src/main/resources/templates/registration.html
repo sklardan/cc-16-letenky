@@ -14,6 +14,26 @@
 
 </head>
 <body>
+<div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
+</div>
+
+<ul class="navbar">
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/templates/cities.html}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/templates/flights.html}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/templates/settings.html}">Nastavení hledání</a></li>
+</ul>
+<ul class="navbar navbar-right">
+    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <a href="/registration" th:href="@{/templates/registration.html}>Registration</a>
+    </li>
+    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>
+    </li>
+    <li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">
+        <a href="/logout" th:href="@{/templates/logout.html}">Logout</a>
+    </li>
+</ul>
+
 <form>
     <div class="container">
         <div class="row">
