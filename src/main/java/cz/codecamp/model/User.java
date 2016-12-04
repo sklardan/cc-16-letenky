@@ -41,14 +41,8 @@ public class User {
     @Column(name="citiesTo")
     private List<Location> citiesTo;
 
-    @Column(name="nightsInDestinationMin")
-    private Integer nightsInDestinationMin;
-    @Column(name="nightsInDestinationMax")
-    private Integer nightsInDestinationMax;
     @Column(name="flyDurationMinutesMax")
     private Integer flyDurationMinutesMax;
-    @Column(name="flyDurationHoursMax")
-    private Integer flyDurationHoursMax;
     @Column(name="pctAvgPriceMax")
     private Double pctAvgPriceMax;
 
@@ -59,6 +53,12 @@ public class User {
     @Column(name="dateTo")
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dateTo;
+
+    @Column(name="nightsInDestinationMin")
+    private Integer nightsInDestinationMin;
+    @Column(name="nightsInDestinationMax")
+    private Integer nightsInDestinationMax;
+
 
     public User(String emailLogin, String password){
         this.emailLogin = emailLogin;
@@ -147,15 +147,6 @@ public class User {
     public void setFlyDurationHoursToMinutesMax(Integer flyDurationHoursMax) {
         this.flyDurationMinutesMax = flyDurationHoursMax*60;
     }
-
-    public Integer getFlyDurationHoursMax() {
-        return flyDurationHoursMax;
-    }
-
-    public void setFlyDurationHoursMax(Integer flyDurationHoursMax) {
-        this.flyDurationHoursMax = flyDurationHoursMax;
-    }
-
     public Date getDateFrom() {
         return dateFrom;
     }

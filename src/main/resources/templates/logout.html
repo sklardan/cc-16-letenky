@@ -25,24 +25,21 @@
 </div>
 
 <ul class="navbar">
-    <li class="navbar"><a class="active" href="/cities" th:href="@{/templates/cities.html}">Výběr míst</a></li>
-    <li class="navbar"><a href="/flights" th:href="@{/templates/flights.html}">Letenky</a></li>
-    <li class="navbar"><a href="/settings" th:href="@{/templates/settings.html}">Nastavení hledání</a></li>
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/cities}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/flights}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
 </ul>
-<ul class="navbar navbar-right">
-    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
-        <a href="/registration" th:href="@{/templates/registration.html}>Registration</a>
-    </li>
-    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
-        <a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>
-    </li>
-    <li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">
-        <a href="/logout" th:href="@{/templates/logout.html}">Logout</a>
-    </li>
-</ul>
-
-<p th:utext="#{home.welcome}">Welcome to our grocery store!</p>
-
+<!--<ul class="navbar navbar-right">-->
+    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
+        <!--<a href="/registration" th:href="@{/templates/registration.html}>Registration</a>-->
+    <!--</li>-->
+    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
+        <!--<a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>-->
+    <!--</li>-->
+    <!--<li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">-->
+        <!--<a href="/logout" th:href="@{/templates/logout.html}">Logout</a>-->
+    <!--</li>-->
+<!--</ul>-->
 
 <div class="container">
     <div class="row">
@@ -50,6 +47,11 @@
             <h4>You are Logged Out</h4>
         </div>
     </div>
+
 </div>
+
+
+
+
 </body>
 </html>

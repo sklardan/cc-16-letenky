@@ -17,148 +17,6 @@
     <link rel="stylesheet" href="/vendor/jquery-typeahead/dist/jquery.typeahead.min.css">
     <script src="/vendor/jquery-typeahead/dist/jquery.typeahead.min.js"></script>
 
-    <script type="text/javascript">
-        // Waiting for the DOM ready...
-        $(function(){
-
-            // applied typeahead to the text input box
-            $('#my-input').typeahead({
-                name: 'countries',
-
-                // data source
-                prefetch: '../data/cities.json',
-
-                // max item numbers list in the dropdown
-                limit: 10
-            });
-
-        });
-    </script>
-
-    <link rel="stylesheet" href="/vendor/jquery-typeahead/dist/jquery.typeahead.min.css">
-    <script src="/vendor/jquery-typeahead/dist/jquery.typeahead.min.js"></script>
-    <script>
-        $.typeahead({
-            input: ".js-typeahead",
-            order: "asc",
-            source: {
-                groupName: {
-                    // Array of Objects / Strings
-                    data: [
-                        {
-                            "city": "Cordoba"
-                        },
-                        {
-                            "city": "Palma"
-                        },
-                        {
-                            "city": "Bonn"
-                        },
-                        {
-                            "city": "Venezia"
-                        },
-                        {
-                            "city": "Belfast"
-                        },
-                        {
-                            "city": "Leicester"
-                        },
-                        {
-                            "city": "Aarhus"
-                        },
-                        {
-                            "city": "Nottingham"
-                        },
-                        {
-                            "city": "Karlsruhe"
-                        },
-                        {
-                            "city": "Porto"
-                        },
-                        {
-                            "city": "Alicante"
-                        },
-                        {
-                            "city": "Ljubljana"
-                        },
-                        {
-                            "city": "Maribor"
-                        },
-                        {
-                            "city": "Malmo"
-                        },
-                        {
-                            "city": "Verona"
-                        },
-                        {
-                            "city": "Strasbourg"
-                        },
-                        {
-                            "city": "Nis"
-                        },
-                        {
-                            "city": "Nantes"
-                        },
-                        {
-                            "city": "Tirana"
-                        },
-                        {
-                            "city": "Kosice"
-                        },
-                        {
-                            "city": "Graz"
-                        },
-                        {
-                            "city": "Utrecht"
-                        },
-                        {
-                            "city": "Gent"
-                        },
-                        {
-                            "city": "Bergen"
-                        },
-                        {
-                            "city": "Bordeaux"
-                        },
-                        {
-                            "city": "Linz"
-                        },
-                        {
-                            "city": "Split"
-                        },
-                        {
-                            "city": "Sarajevo"
-                        },
-                        {
-                            "city": "Le Havre"
-                        },
-                        {
-                            "city": "Tampere"
-                        },
-                        {
-                            "city": "Uppsala"
-                        },
-                        {
-                            "city": "Modena"
-                        },
-                        {
-                            "city": "Geneva"
-                        },
-                        {
-                            "city": "Livorno"
-                        },
-                        {
-                            "city": "Grenoble"
-                        }
-                    ]
-                }
-            },
-            callback: {
-//                onClickBefore: function () { ... }
-            }
-        });
-    </script>
-
 
     <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
 
@@ -172,22 +30,22 @@
 </div>
 
 <ul class="navbar">
-    <li class="navbar"><a class="active" href="/cities" th:href="@{/templates/cities.html}">Výběr míst</a></li>
-    <li class="navbar"><a href="/flights" th:href="@{/templates/flights.html}">Letenky</a></li>
-    <li class="navbar"><a href="/settings" th:href="@{/templates/settings.html}">Nastavení hledání</a></li>
+    <li class="navbar"><a class="active" href="/cities" th:href="@{/cities}">Výběr míst</a></li>
+    <li class="navbar"><a href="/flights" th:href="@{/flights}">Letenky</a></li>
+    <li class="navbar"><a href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
 </ul>
-<ul class="navbar navbar-right">
-    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
-        <a href="/registration" th:href="@{/templates/registration.html}>Registration</a>
-    </li>
-    <li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">
-        <a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>
-    </li>
-    <li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">
-        <a href="/logout" th:href="@{/templates/logout.html}">Logout</a>
-    </li>
-</ul>
-
+<!--<ul class="navbar navbar-right">-->
+    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
+        <!--<a href="/registration" th:href="@{/templates/registration.html}>Registration</a>-->
+    <!--</li>-->
+    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
+        <!--<a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>-->
+    <!--</li>-->
+    <!--<li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">-->
+        <!--<a href="/logout" th:href="@{/templates/logout.html}">Logout</a>-->
+    <!--</li>-->
+<!--</ul>-->
++
 
 <div class="container">
     <div class="col-md-4 col-md-offset-2" style="overflow-x:auto;">
@@ -197,46 +55,50 @@
                 <th><h4>Cities</h4></th>
                 <th><h4>Countries</h4></th>
             </tr>
-            <tr th:each="cac : ${citiesAndCountries}">
-                <td th:text="${cac.key}">City</td>
-                <td th:text="${cac.value}">Country</td>
+            <!--<tr th:each="cac : ${citiesAndCountries}">-->
+                <!--<td th:text="${cac.key}">City</td>-->
+                <!--<td th:text="${cac.value}">Country</td>-->
+            <!--</tr>-->
+            <tr th:each="location  : ${locations}">
+                <td th:text="${location.city}"></td>
+                <td th:text="${location.country}"></td>
             </tr>
         </table>
     </div>
-
-    <form>
-        <div class="typeahead__container">
-            <div class="typeahead__field">
-
-            <span class="typeahead__query">
-                <input class="js-typeahead"
-                       name="q"
-                       type="search"
-                       autocomplete="off">
-            </span>
-                <span class="typeahead__button">
-                <button type="submit">
-                    <span class="typeahead__search-icon"></span>
-                </button>
-            </span>
-
-            </div>
-        </div>
+</div>
+<div class="form">
+    <h1>Location</h1>
+    <form action="#" th:action="@{/addcity}" th:object="${location}" method="post">
+        <p>Id: <input type="text" th:field="*{id}" /></p>
+        <p>City: <input type="text" th:field="*{city}" /></p>
+        <p>Country: <input type="text" th:field="*{country}" /></p>
+        <p>Code: <input type="text" th:field="*{code}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
+</div>
 
-    <div class="col-md-4">
-        <div>
-            <form class="form-horizontal" th:object="${destinationCommand}" th:action="@{/choose-destination}" method="post">
-                <div class="form-group"
-                     th:class="${#fields.hasErrors('cityTo')} ? 'form-group has-error' : 'form-group'">
-                    <label class="col-sm-10 control-label">Add new destination:</label>
-                    <div class="col-sm-10">
-                        <input class="typeahead" type="text" placeholder="Cities of Europe" name="cityTo" id="cityTo"/>
-                        <br>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+
+<div class="form">
+    <h1>City</h1>
+    <form action="#" th:action="@{/addcity}"  method="post">
+        <p>City you want to fly to: <input type="text" th:object="${city}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</div>
+
+    <!--<div class="col-md-4">-->
+        <!--<div>-->
+            <!--<form class="form-horizontal" th:object="${destinationCommand}" th:action="@{/choose-destination}" method="post">-->
+                <!--<div class="form-group"-->
+                     <!--th:class="${#fields.hasErrors('cityTo')} ? 'form-group has-error' : 'form-group'">-->
+                    <!--<label class="col-sm-10 control-label">Add new destination:</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<input class="typeahead" type="text" placeholder="Cities of Europe" name="cityTo" id="cityTo"/>-->
+                        <!--<br>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</div>-->
 </body>
 </html>

@@ -1,0 +1,414 @@
+{
+  "data": [
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "500",
+      "price": 2900,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481000000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "500",
+      "price": 4500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481100000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "700",
+      "price": 3500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481200000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "670",
+      "price": 3500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481300000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "450",
+      "price": 7500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481400000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "780",
+      "price": 2500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481500000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "230",
+      "price": 10000,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481600000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "450",
+      "price": 6500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481700000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "400",
+      "price": 3600,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481800000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "520",
+      "price": 3800,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481900000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "430",
+      "price": 3700,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482000000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "260",
+      "price": 12500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482100000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "380",
+      "price": 6700,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482200000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "270",
+      "price": 4500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482300000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "560",
+      "price": 4500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482400000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "400",
+      "price": 7500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482500000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "berlin_de",
+      "fly_duration": "340",
+      "price": 6500,
+      "nightsInDest": 5,
+      "dTimeUTC":1482600000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "390",
+      "price": 3900,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481000000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "450",
+      "price": 4500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481100000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "600",
+      "price": 2500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481200000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "590",
+      "price": 4500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481300000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "450",
+      "price": 8500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481400000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "580",
+      "price": 3500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481500000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "230",
+      "price": 11000,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481600000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "450",
+      "price": 7500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481700000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "400",
+      "price": 4600,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481800000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "520",
+      "price": 4800,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481900000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "430",
+      "price": 4700,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482000000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "260",
+      "price": 12500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482100000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "380",
+      "price": 7700,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482200000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "290",
+      "price": 5500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482300000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "460",
+      "price": 5500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482400000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "300",
+      "price": 8500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482500000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "vienna_at",
+      "fly_duration": "340",
+      "price": 7500,
+      "nightsInDest": 5,
+      "dTimeUTC":1482600000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "570",
+      "price": 3900,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481000000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "390",
+      "price": 5500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481100000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "500",
+      "price": 4500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481200000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "770",
+      "price": 4500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481300000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "450",
+      "price": 9500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481400000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "480",
+      "price": 4500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481500000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "330",
+      "price": 10000,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481600000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "450",
+      "price": 5600,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481700000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "530",
+      "price": 7600,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481800000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "490",
+      "price": 6500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1481900000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "500",
+      "price": 3500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482000000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "360",
+      "price": 12500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482100000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "480",
+      "price": 5700,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482200000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "500",
+      "price": 3900,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482300000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "560",
+      "price": 5500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482400000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "400",
+      "price": 8500,
+      "nightsInDest": 5,
+      "dTimeUTC": 1482500000000
+    },
+    {
+      "cityFrom": "prague_cz",
+      "cityTo": "haag_nl",
+      "fly_duration": "340",
+      "price": 7500,
+      "nightsInDest": 5,
+      "dTimeUTC":1482600000000
+    }
+  ]
+}
+
+

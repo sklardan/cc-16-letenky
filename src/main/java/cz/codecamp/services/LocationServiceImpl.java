@@ -19,12 +19,13 @@ public class LocationServiceImpl {
     @Autowired
     UserRepository userRepository;
 
-    public List<Location> addLocation(String cityTo, String emailLogin){
-        User user = userRepository.findByEmailLogin(emailLogin);
+    public List<Location> addLocation(String cityTo, String userName){
+        User user = userRepository.findByUserName(userName);
         Location location = locationRepository.findByCity(cityTo);
         List<Location> locations = user.getCitiesTo();
         locations.add(location);
         user.setCitiesTo(locations);
+        userRepository.save(user);
         return locations;
     }
 

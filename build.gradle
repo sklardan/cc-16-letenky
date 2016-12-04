@@ -52,7 +52,9 @@ dependencies {
 	compile ('org.thymeleaf:thymeleaf-spring4:3.0.2.RELEASE')
 	compile('org.springframework:spring-orm:4.3.4.RELEASE')
 
- 	compile('org.hibernate:hibernate-core:5.2.4.Final')
+	compile ('com.googlecode.json-simple:json-simple:1.1.1')
+
+	compile('org.hibernate:hibernate-core:5.2.4.Final')
 
 	compile ('mysql:mysql-connector-java:6.0.5')
 	runtime ('mysql:mysql-connector-java:6.0.5')

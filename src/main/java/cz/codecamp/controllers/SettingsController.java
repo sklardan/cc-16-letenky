@@ -3,9 +3,11 @@ package cz.codecamp.controllers;
 import cz.codecamp.model.Location;
 import cz.codecamp.model.User;
 import cz.codecamp.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -16,13 +18,20 @@ import java.util.Map;
  */
 public class SettingsController {
 
-    private UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    @RequestMapping(value = "settings", method = RequestMethod.POST)
-    public ModelAndView getSettings(@PathVariable String userName){
-        ModelAndView modelAndView = new ModelAndView("settings");
-        User user = userRepository.findByUserName(userName);
-        modelAndView.addObject("user",user);
+    @RequestMapping(value = "settings", method = RequestMethod.GET)
+    public ModelAndView getSettings(){
+        ModelAndView modelAndView = new ModelAndView("logout");
+//        User user = userRepository.findByUserName(userName);
+//        modelAndView.addObject("user",user);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "flights3", method = RequestMethod.GET)
+    public ModelAndView logout(){
+        ModelAndView modelAndView = new ModelAndView("logout");
         return modelAndView;
     }
 }

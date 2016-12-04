@@ -38,7 +38,7 @@ public class EmailServiceImpl {
         Iterable<User> users = userRepository.findAll();
         for (User user : users){
             String emailLogin = user.getEmailLogin();
-            flightService.saveFlightsFromJson(emailLogin);
+            flightService.saveFlightsFromJson();
             List<Flight> flights = flightService.getFlightsForUserToday(emailLogin);
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
