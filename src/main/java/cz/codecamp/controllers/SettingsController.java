@@ -21,7 +21,7 @@ public class SettingsController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping(value = "settings", method = RequestMethod.GET)
+    @RequestMapping(value = "settings2", method = RequestMethod.GET)
     public ModelAndView getSettings(){
         ModelAndView modelAndView = new ModelAndView("logout");
 //        User user = userRepository.findByUserName(userName);
@@ -29,9 +29,4 @@ public class SettingsController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "flights3", method = RequestMethod.GET)
-    public ModelAndView logout(){
-        ModelAndView modelAndView = new ModelAndView("logout");
-        return modelAndView;
-    }
 }

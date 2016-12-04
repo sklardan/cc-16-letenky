@@ -10,23 +10,12 @@
     <script src="../static/js/jquery-2.1.4.min.js"
             th:src="@{/js/jquery-2.1.4.min.js}"></script>
 
-    <!--<script src="../static/js/Typeahead.js"-->
-            <!--th:src="@{/js/Typeahead.js}"></script>-->
-
-    <!--<script src="../static/js/typeahead.min.js"></script>-->
-    <link rel="stylesheet" href="/vendor/jquery-typeahead/dist/jquery.typeahead.min.css">
-    <script src="/vendor/jquery-typeahead/dist/jquery.typeahead.min.js"></script>
-
 
     <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
 
 </head>
 <body>
 <div class="jumbotron" th:replace="fragments/jumbotron :: jumbotron">
-    <div class="container">
-        <h1 th:text="#{index.page.title}"></h1>
-        <p class="lead" th:text="#{index.courses.tagline}">Tag line</p>
-    </div>
 </div>
 
 <ul class="navbar">
@@ -34,57 +23,79 @@
     <li class="navbar"><a href="/flights" th:href="@{/flights}">Letenky</a></li>
     <li class="navbar"><a href="/settings" th:href="@{/settings}">Nastavení hledání</a></li>
 </ul>
-<!--<ul class="navbar navbar-right">-->
-    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
-        <!--<a href="/registration" th:href="@{/templates/registration.html}>Registration</a>-->
-    <!--</li>-->
-    <!--<li class="navbar" th:if="${#authorization.expression('!isAuthenticated()')}">-->
-        <!--<a href="/signin" th:href="@{/templates/signin.html}">Sign in</a>-->
-    <!--</li>-->
-    <!--<li class="navbar" th:if="${#authorization.expression('isAuthenticated()')}">-->
-        <!--<a href="/logout" th:href="@{/templates/logout.html}">Logout</a>-->
-    <!--</li>-->
-<!--</ul>-->
-+
+
 
 <div class="container">
-    <div class="col-md-4 col-md-offset-2" style="overflow-x:auto;">
+    <div class="col-md-6 col-md-offset-3" >
         <h3>Výběr míst</h3>
-        <table id="letenky" style="width:100%">
+        <table class="table-striped" style="width:100%">
             <tr>
-                <th><h4>Cities</h4></th>
-                <th><h4>Countries</h4></th>
+                <th><h5>Cities</h5></th>
+                <th><h5>Countries</h5></th>
             </tr>
-            <!--<tr th:each="cac : ${citiesAndCountries}">-->
-                <!--<td th:text="${cac.key}">City</td>-->
-                <!--<td th:text="${cac.value}">Country</td>-->
-            <!--</tr>-->
-            <tr th:each="location  : ${locations}">
+
+            <tr th:each="location  : ${citiesTo}">
                 <td th:text="${location.city}"></td>
                 <td th:text="${location.country}"></td>
             </tr>
         </table>
     </div>
 </div>
-<div class="form">
-    <h1>Location</h1>
-    <form action="#" th:action="@{/addcity}" th:object="${location}" method="post">
-        <p>Id: <input type="text" th:field="*{id}" /></p>
-        <p>City: <input type="text" th:field="*{city}" /></p>
-        <p>Country: <input type="text" th:field="*{country}" /></p>
-        <p>Code: <input type="text" th:field="*{code}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-</div>
 
 
-<div class="form">
-    <h1>City</h1>
-    <form action="#" th:action="@{/addcity}"  method="post">
-        <p>City you want to fly to: <input type="text" th:object="${city}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="form">
+            <form action="#" th:action="@{/cities}" th:object="${location}" method="post">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pctAvgPriceMax">Id: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="pctAvgPriceMax" th:field="*{locationId}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="flyDurationMinutesMax">City: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="flyDurationMinutesMax" th:field="*{city}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dateFrom">Country: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="dateFrom" th:field="*{country}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dateTo">Code: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="dateTo" th:field="*{code}" />
+                    </div>
+                </div>
+                <p><input type="submit" class="btn btn-default" value="Submit" /> <input type="reset" class="btn btn-default" value="Reset" /></p>
+            </form>
+        </div>
+    </div>
 </div>
+
+<!--<div class="form">-->
+    <!--<h4>Add new location</h4>-->
+    <!--<form action="#" th:action="@{/cities}" th:object="${location}" method="post">-->
+        <!--<p>Id: <input type="text" th:field="*{id}" /></p>-->
+        <!--<p>City: <input type="text" th:field="*{city}" /></p>-->
+        <!--<p>Country: <input type="text" th:field="*{country}" /></p>-->
+        <!--<p>Code: <input type="text" th:field="*{code}" /></p>-->
+        <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+    <!--</form>-->
+<!--</div>-->
+
+
+<!--<div class="form">-->
+    <!--<h1>City</h1>-->
+    <!--<form action="#" th:action="@{/addcity}"  method="post">-->
+        <!--<p>City you want to fly to: <input type="text" th:object="${city}" /></p>-->
+        <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+    <!--</form>-->
+<!--</div>-->
 
     <!--<div class="col-md-4">-->
         <!--<div>-->

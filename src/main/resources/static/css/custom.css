@@ -1,5 +1,5 @@
 .jumbotron {
-    background: url('../images/SpringCoreJumbotron.jpg') no-repeat center center;
+    background: url('../images/flight.png') no-repeat center center;
     height: 350px;
     color: white;
     text-shadow: #444 0 1px 1px;
@@ -89,12 +89,12 @@ li a.active {
 }
 
 .container {
-    max-width:500px;
+    max-width:800px;
     margin-top:15px;
     margin-left:10px;
 
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 1.2;
     color: #333;
 }

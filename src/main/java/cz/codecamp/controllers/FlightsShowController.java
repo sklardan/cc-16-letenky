@@ -26,7 +26,7 @@ public class FlightsShowController {
     @Autowired
     LocationRepository locationRepository;
 
-    @RequestMapping(value = "flights", method = RequestMethod.GET)
+    @RequestMapping(value = "flights2", method = RequestMethod.GET)
     public ModelAndView getFlights(@PathVariable String userName){
         ModelAndView modelAndView = new ModelAndView("flights");
         User user = userRepository.findByUserName(userName);
@@ -36,47 +36,12 @@ public class FlightsShowController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "flights2", method = RequestMethod.GET)
+    @RequestMapping(value = "flights3", method = RequestMethod.GET)
     public ModelAndView logout(){
         ModelAndView modelAndView = new ModelAndView("logout");
         return modelAndView;
     }
 
-    @RequestMapping(value = "settings1", method = RequestMethod.GET)
-    public ModelAndView getSettings(@RequestParam("u") String userName){
-        ModelAndView modelAndView = new ModelAndView("settings");
-        User user = userRepository.findByUserName(userName);
-        modelAndView.addObject("user",user);
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "cities1", method = RequestMethod.GET)
-    public ModelAndView getCities(@RequestParam("u") String userName){
-        ModelAndView modelAndView = new ModelAndView("cities");
-        User user = userRepository.findByUserName(userName);
-        modelAndView.addObject("user",user);
-        modelAndView.addObject("locations", user.getCitiesTo());
-        return modelAndView;
-    }
-
-
-
-    @GetMapping("/addcity2")
-    public String addCity2(Model model){
-        model.addAttribute("city", new String());
-        return "cities";
-    }
-
-    @PostMapping("/addcity2")
-    public String citySubmit2(@ModelAttribute String city) {
-        Location location = locationRepository.findByCity(city);
-        User user = userRepository.findByUserName("kubres");
-        List<Location> citiesTo = user.getCitiesTo();
-        citiesTo.add(location);
-        user.setCitiesTo(citiesTo);
-        userRepository.save(user);
-        return "result2";
-    }
 
 
 
